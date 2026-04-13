@@ -50,14 +50,16 @@ export default function About() {
             transition={{ duration:0.7, delay:0.15 }}
           >
             <p>
-              Hey! I'm <strong>Raúl Ortega Pérez</strong>, a 22-year-old Computer Engineering graduate
-              from the <strong>University of Almería (UAL)</strong>. I'm passionate about turning
-              complex problems into elegant, user-friendly software.
+              Hey! I'm <strong>Raúl Ortega Pérez</strong>, a 22-year-old <strong>Computer Engineering
+              graduate</strong> from the <strong>University of Almería (UAL), Spain</strong>. I'm
+              passionate about turning complex problems into elegant, user-friendly software.
             </p>
             <p>
               I love building <strong>full-stack web applications</strong> — from crafting pixel-perfect
               UIs to designing efficient backend architectures. My goal is always clean,
-              maintainable code that scales.
+              maintainable code that scales. I'm actively <strong>open to opportunities across
+              Europe</strong>, including Denmark, Sweden, Norway, Germany and the Netherlands —
+              both on-site and remote.
             </p>
             <p>
               I also have advanced knowledge in <strong>cybersecurity</strong> — including

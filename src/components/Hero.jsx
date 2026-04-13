@@ -46,7 +46,7 @@ export default function Hero() {
           <div>
             <motion.div className="hero-eyebrow" {...fadeUp(0.2)}>
               <span className="dot" />
-              Available for work
+              Available for work · Open to relocation in Europe
             </motion.div>
 
             <motion.h1 className="hero-name" {...fadeUp(0.35)}>
