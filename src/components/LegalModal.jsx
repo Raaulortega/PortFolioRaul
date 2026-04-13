@@ -32,16 +32,18 @@ export default function LegalModal({ open, onClose, title, children }) {
           />
 
           {/* Panel */}
+          <div style={{
+            position: 'fixed', zIndex: 4001,
+            top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 'min(680px, calc(100vw - 32px))',
+          }}>
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             style={{
-              position: 'fixed', zIndex: 4001,
-              top: '50%', left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 'min(680px, calc(100vw - 32px))',
               maxHeight: '80vh',
               background: 'rgba(10,10,16,0.98)',
               border: '1px solid rgba(255,255,255,0.08)',
@@ -93,6 +95,7 @@ export default function LegalModal({ open, onClose, title, children }) {
               {children}
             </div>
           </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>

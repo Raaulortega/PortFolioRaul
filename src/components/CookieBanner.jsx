@@ -22,16 +22,18 @@ export default function CookieBanner() {
   return (
     <AnimatePresence>
       {visible && (
+        <div style={{
+          position: 'fixed', top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 3000,
+          width: 'min(680px, calc(100vw - 32px))',
+        }}>
         <motion.div
-          initial={{ y: 120, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 120, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.92 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 28 }}
           style={{
-            position: 'fixed', bottom: 24, left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 3000,
-            width: 'min(680px, calc(100vw - 32px))',
             background: 'rgba(13,13,20,0.96)',
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(255,255,255,0.08)',
@@ -97,6 +99,7 @@ export default function CookieBanner() {
             </button>
           </div>
         </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );
