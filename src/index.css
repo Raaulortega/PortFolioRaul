@@ -243,7 +243,6 @@ section { padding: 120px 0; }
 }
 .hud-card--hero { width: min(700px, 100%); text-align: center; }
 .hud-card--left { justify-self: start; width: min(560px, 100%); }
-.hud-card--right { justify-self: end; width: min(540px, 100%); }
 
 .glass-hud {
   color: var(--hud-ink);
@@ -312,7 +311,6 @@ section { padding: 120px 0; }
 }
 .hud-text { font-size: 1.02rem; line-height: 1.78; color: #22384f; }
 .hud-text strong { color: var(--hud-ink); font-weight: 650; }
-.hud-text--lead { font-size: 1.08rem; }
 .hud-stats {
   display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 10px; margin-top: 26px;
@@ -327,12 +325,34 @@ section { padding: 120px 0; }
   line-height: 1.1; color: var(--leaf);
 }
 .hud-stat-label { font-size: 0.74rem; color: #33506e; margin-top: 4px; }
-.hud-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 46px; height: 46px; border-radius: 14px; margin-bottom: 16px;
-  color: #fff; background: linear-gradient(135deg, var(--gold), var(--sunset));
-  box-shadow: 0 10px 24px -10px rgba(217, 87, 59, 0.7);
+/* Card-less statement: a soft, edge-less frosted halo keeps it legible over the scene */
+.hud-flow {
+  position: relative;
+  width: min(900px, 100%);
+  padding: 56px 48px;
+  text-align: center;
 }
+.hud-flow::before {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.45) 45%, rgba(255, 255, 255, 0) 72%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 72%);
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 72%);
+}
+.hud-flow-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.6vw, 2.15rem);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: var(--hud-ink);
+}
+.flow-word { display: inline-block; will-change: opacity, transform; text-shadow: 0 0 14px rgba(255, 255, 255, 0.85), 0 0 2px rgba(255, 255, 255, 0.6); }
+/* Solid colour (not gradient-clipped) so the legibility glow still renders */
+.flow-word--strong { font-weight: 700; color: var(--leaf); }
 
 .journey-rail {
   position: absolute; right: 28px; top: 50%;
@@ -511,7 +531,54 @@ section { padding: 120px 0; }
   background: var(--surface); border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
 }
-.skill-track { height: 6px; border-radius: 3px; background: rgba(27, 42, 34, 0.07); }
+.skill-card { position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.skill-card::after {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--group-color) 14%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.skill-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.skill-card-head { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.skill-card-icon {
+  width: 44px; height: 44px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--group-color);
+  background: color-mix(in srgb, var(--group-color) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--group-color) 22%, transparent);
+}
+.skill-card-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem; font-weight: 600; color: var(--ink);
+}
+.skill-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.skill-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 12px; margin: 0 -12px; border-radius: 12px;
+  transition: background 0.2s ease;
+}
+.skill-row:hover { background: color-mix(in srgb, var(--group-color) 7%, transparent); }
+.skill-check {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; background: var(--group-color);
+}
+.skill-name { flex: 1; font-size: 0.92rem; font-weight: 500; color: var(--ink); }
+.tier {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+  padding: 4px 11px; border-radius: 999px; white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.tier--expert { color: #fff; background: var(--tier-color); box-shadow: 0 6px 16px -8px var(--tier-color); }
+.tier--advanced {
+  color: var(--tier-color);
+  background: color-mix(in srgb, var(--tier-color) 13%, #fff);
+  border: 1px solid color-mix(in srgb, var(--tier-color) 25%, transparent);
+}
+.tier--proficient { color: var(--tier-color); background: #fff; border: 1px solid color-mix(in srgb, var(--tier-color) 35%, transparent); }
+.tier-spark { font-size: 0.65rem; }
 .pill {
   font-family: var(--font-mono); font-size: 0.74rem;
   padding: 7px 15px; border-radius: 999px;
@@ -692,8 +759,7 @@ section { padding: 120px 0; }
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .journey-hud { padding: 88px 16px 110px; }
-  .hud-card--left,
-  .hud-card--right { justify-self: center; }
+  .hud-card--left { justify-self: center; }
   .journey-rail { display: none; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-lower { grid-template-columns: 1fr; margin-top: 48px; }
@@ -718,7 +784,13 @@ section { padding: 120px 0; }
 @media (max-width: 560px) {
   .glass-hud { padding: 26px 22px; border-radius: 24px; }
   .hud-stats { grid-template-columns: repeat(2, 1fr); }
-  .hud-text, .hud-text--lead { font-size: 0.95rem; line-height: 1.7; }
+  .hud-text { font-size: 0.95rem; line-height: 1.7; }
+  .hud-flow { padding: 40px 12px; }
+  .hud-flow::before {
+    inset: -24px -16px;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 58%, transparent 88%);
+    mask-image: radial-gradient(ellipse at center, #000 58%, transparent 88%);
+  }
   .hero-desc { font-size: 0.96rem; }
   .hero-socials { margin-left: 0; }
   .tech-grid { grid-template-columns: repeat(3, 1fr); }
