@@ -5,7 +5,7 @@ import { useReveal } from '../hooks/useReveal';
 const skillGroups = [
   {
     title: 'Frontend',
-    color: '#00f5ff',
+    color: '#1f6fb2',
     skills: [
       { name: 'React / Next.js', level: 88 },
       { name: 'JavaScript / TypeScript', level: 85 },
@@ -15,7 +15,7 @@ const skillGroups = [
   },
   {
     title: 'Backend',
-    color: '#8b5cf6',
+    color: '#2f7d46',
     skills: [
       { name: 'Java / Spring Boot', level: 95 },
       { name: 'Python / FastAPI', level: 90 },
@@ -25,7 +25,7 @@ const skillGroups = [
   },
   {
     title: 'Tools & Infrastructure',
-    color: '#00ff88',
+    color: '#a5630a',
     skills: [
       { name: 'Git / GitHub', level: 88 },
       { name: 'SQL / PostgreSQL', level: 75 },
@@ -35,7 +35,7 @@ const skillGroups = [
   },
   {
     title: 'Cybersecurity',
-    color: '#f472b6',
+    color: '#c4472a',
     skills: [
       { name: 'Attack Mitigation & Hardening', level: 88 },
       { name: 'Penetration Testing', level: 82 },
@@ -44,6 +44,9 @@ const skillGroups = [
     ],
   },
 ];
+
+const alsoFamiliar = ['Algorithms', 'Data Structures', 'Design Patterns', 'CI/CD', 'Agile', 'TDD',
+  'Responsive Design', 'Web Performance', 'SEO Basics', 'Linux'];
 
 function SkillBar({ name, level, color, delay }) {
   const [w, setW] = useState(0);
@@ -73,19 +76,19 @@ function SkillBar({ name, level, color, delay }) {
 
   return (
     <div style={{ marginBottom: 18 }}>
-      <div style={{ display:'flex', justifyContent:'space-between', marginBottom:7 }}>
-        <span style={{ fontSize:'0.85rem', color:'var(--text-primary)', fontFamily:'JetBrains Mono' }}>
+      <div style={{ display:'flex', justifyContent:'space-between', marginBottom:8 }}>
+        <span style={{ fontSize:'0.86rem', color:'var(--ink)', fontWeight:500 }}>
           {name}
         </span>
-        <span style={{ fontSize:'0.75rem', color:'var(--text-secondary)', fontFamily:'JetBrains Mono' }}>
+        <span style={{ fontSize:'0.76rem', color:'var(--ink-muted)', fontFamily:'var(--font-mono)' }}>
           {level}%
         </span>
       </div>
-      <div ref={trackRef} style={{ height: 5, borderRadius: 3, background: 'rgba(255,255,255,0.07)' }}>
+      <div ref={trackRef} className="skill-track">
         <div style={{
           height: '100%', borderRadius: 3,
-          background: `linear-gradient(90deg, ${color}, ${color}88)`,
-          boxShadow: `0 0 8px ${color}55`,
+          background: `linear-gradient(90deg, ${color}, ${color}aa)`,
+          boxShadow: `0 2px 8px ${color}40`,
           width: `${w}%`,
           transition: `width 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
         }} />
@@ -95,26 +98,25 @@ function SkillBar({ name, level, color, delay }) {
 }
 
 /* Each card observes itself — fires when that card enters the viewport */
-function SkillCard({ group, gi }) {
+function SkillCard({ group }) {
   const [ref, visible] = useReveal(0.3);
 
   return (
     <motion.div
       ref={ref}
-      className="glass"
-      style={{ padding:'28px 26px', borderRadius:16 }}
+      className="skill-card"
       initial={{ opacity:0, y:30 }}
       animate={visible ? { opacity:1, y:0 } : {}}
       transition={{ duration:0.6 }}
     >
       <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:26 }}>
         <div style={{
-          width:8, height:8, borderRadius:'50%',
+          width:10, height:10, borderRadius:'50%',
           background: group.color,
-          boxShadow:`0 0 10px ${group.color}`,
+          boxShadow:`0 0 0 4px ${group.color}22`,
         }} />
         <span style={{
-          fontFamily:'JetBrains Mono', fontSize:'0.78rem',
+          fontFamily:'var(--font-mono)', fontSize:'0.78rem', fontWeight:500,
           textTransform:'uppercase', letterSpacing:'0.12em',
           color: group.color,
         }}>
@@ -126,7 +128,6 @@ function SkillCard({ group, gi }) {
           key={skill.name}
           {...skill}
           color={group.color}
-          visible={visible}
           delay={si * 0.1}
         />
       ))}
@@ -138,7 +139,7 @@ export default function Skills() {
   const [headerRef, headerVisible] = useReveal(0.2);
 
   return (
-    <section id="skills" style={{ background:'var(--bg-secondary)' }}>
+    <section id="skills" className="section-alt">
       <div className="container">
         <motion.div
           ref={headerRef}
@@ -158,45 +159,24 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        <div className="skills-grid" style={{
-          display:'grid',
-          gridTemplateColumns:'repeat(2, 1fr)',
-          gap:24,
-        }}>
-          {skillGroups.map((group, gi) => (
-            <SkillCard key={group.title} group={group} gi={gi} />
+        <div className="skills-grid">
+          {skillGroups.map((group) => (
+            <SkillCard key={group.title} group={group} />
           ))}
         </div>
 
         {/* Bottom pills */}
         <div style={{ marginTop:50, textAlign:'center' }}>
           <p style={{
-            fontFamily:'JetBrains Mono', fontSize:'0.72rem',
-            color:'var(--text-secondary)', textTransform:'uppercase',
+            fontFamily:'var(--font-mono)', fontSize:'0.72rem',
+            color:'var(--ink-muted)', textTransform:'uppercase',
             letterSpacing:'0.15em', marginBottom:20,
           }}>
             // also familiar with
           </p>
           <div style={{ display:'flex', flexWrap:'wrap', gap:10, justifyContent:'center' }}>
-            {['Algorithms', 'Data Structures', 'Design Patterns', 'CI/CD', 'Agile', 'TDD',
-              'Responsive Design', 'Web Performance', 'SEO Basics', 'Linux'].map(c => (
-              <span key={c} style={{
-                fontFamily:'JetBrains Mono', fontSize:'0.72rem',
-                padding:'6px 14px', borderRadius:6,
-                border:'1px solid var(--border)', color:'var(--text-secondary)',
-                background:'var(--bg-card)', transition:'all 0.2s',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = 'rgba(0,245,255,0.3)';
-                e.currentTarget.style.color = 'var(--accent-cyan)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = 'var(--border)';
-                e.currentTarget.style.color = 'var(--text-secondary)';
-              }}
-              >
-                {c}
-              </span>
+            {alsoFamiliar.map(c => (
+              <span key={c} className="pill">{c}</span>
             ))}
           </div>
         </div>

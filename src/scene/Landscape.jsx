@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability -- three.js materials and uniforms are mutated inside useFrame by design. */
 // The valley: flat-shaded low-poly terrain, a winding river with a reflective
 // water shader, instanced swaying forests and an instanced village.
 import { useMemo } from 'react';

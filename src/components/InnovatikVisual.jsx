@@ -37,7 +37,7 @@ export default function InnovatikVisual() {
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(139,92,246,${0.18 * (1 - d / 90)})`;
+            ctx.strokeStyle = `rgba(106,76,192,${0.22 * (1 - d / 90)})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -48,7 +48,7 @@ export default function InnovatikVisual() {
       nodes.forEach(n => {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(139,92,246,0.55)';
+        ctx.fillStyle = 'rgba(106,76,192,0.45)';
         ctx.fill();
 
         n.x += n.vx;
@@ -65,7 +65,7 @@ export default function InnovatikVisual() {
 
   const services = [
     {
-      color: '#8b5cf6',
+      color: '#6a4cc0',
       icon: (
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
           stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -80,7 +80,7 @@ export default function InnovatikVisual() {
       sub: 'Custom · Scalable · Fast',
     },
     {
-      color: '#c084fc',
+      color: '#8a4fd1',
       icon: (
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
           stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -104,8 +104,9 @@ export default function InnovatikVisual() {
     <div style={{
       position: 'relative', width: '100%', height: '100%', minHeight: 220,
       borderRadius: 12, overflow: 'hidden',
-      background: 'rgba(5,5,10,0.95)',
-      border: '1px solid rgba(139,92,246,0.12)',
+      background: 'linear-gradient(160deg, #ffffff 0%, #f6f1ff 100%)',
+      boxShadow: 'var(--shadow-md)',
+      border: '1px solid rgba(106,76,192,0.16)',
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
       gap: 20, padding: '28px 24px',
@@ -122,7 +123,7 @@ export default function InnovatikVisual() {
         <div style={{
           fontFamily: 'JetBrains Mono, monospace',
           fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em',
-          background: 'linear-gradient(135deg, #8b5cf6, #c084fc)',
+          background: 'linear-gradient(135deg, #6a4cc0, #9b6be0)',
           WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
           marginBottom: 4,
@@ -132,7 +133,7 @@ export default function InnovatikVisual() {
         <div style={{
           fontFamily: 'JetBrains Mono, monospace',
           fontSize: 8.5, letterSpacing: '0.22em', textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.2)',
+          color: 'var(--ink-muted)',
         }}>
           innovatik.pro
         </div>
@@ -160,7 +161,7 @@ export default function InnovatikVisual() {
               </div>
               <div style={{
                 fontFamily: 'JetBrains Mono, monospace',
-                fontSize: 8.5, color: 'rgba(255,255,255,0.28)', lineHeight: 1.4,
+                fontSize: 8.5, color: 'var(--ink-soft)', lineHeight: 1.4,
               }}>
                 {s.sub}
               </div>
@@ -173,21 +174,21 @@ export default function InnovatikVisual() {
       <div style={{
         position: 'relative', zIndex: 1,
         width: '100%', borderRadius: 8, overflow: 'hidden',
-        border: '1px solid rgba(255,255,255,0.07)',
-        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid var(--line)',
+        background: '#fff',
       }}>
         <div style={{
-          padding: '7px 12px', borderBottom: '1px solid rgba(255,255,255,0.06)',
+          padding: '7px 12px', borderBottom: '1px solid var(--line)',
           display: 'flex', alignItems: 'center', gap: 6,
         }}>
-          <span style={{ width:7,height:7,borderRadius:'50%',background:'#ff5f5744',display:'inline-block' }}/>
-          <span style={{ width:7,height:7,borderRadius:'50%',background:'#febc2e44',display:'inline-block' }}/>
-          <span style={{ width:7,height:7,borderRadius:'50%',background:'#28c84044',display:'inline-block' }}/>
+          <span style={{ width:7,height:7,borderRadius:'50%',background:'#ff5f57',display:'inline-block' }}/>
+          <span style={{ width:7,height:7,borderRadius:'50%',background:'#febc2e',display:'inline-block' }}/>
+          <span style={{ width:7,height:7,borderRadius:'50%',background:'#28c840',display:'inline-block' }}/>
           <div style={{
             marginLeft: 8, flex: 1, height: 14, borderRadius: 3,
-            background: 'rgba(255,255,255,0.05)',
+            background: 'var(--bg)',
             fontFamily: 'JetBrains Mono, monospace', fontSize: 8,
-            color: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center',
+            color: 'var(--ink-muted)', display: 'flex', alignItems: 'center',
             paddingLeft: 8,
           }}>
             www.innovatik.pro
@@ -197,7 +198,7 @@ export default function InnovatikVisual() {
           {[70, 45, 55, 40].map((w, i) => (
             <div key={i} style={{
               height: 7, width: w, borderRadius: 3,
-              background: `rgba(139,92,246,${0.08 + i * 0.03})`,
+              background: `rgba(106,76,192,${0.12 + i * 0.04})`,
             }} />
           ))}
         </div>

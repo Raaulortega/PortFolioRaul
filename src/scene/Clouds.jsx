@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability -- three.js materials and uniforms are mutated inside useFrame by design. */
 // Volumetric-looking cloud decks built from camera-facing instanced sprites with a
 // procedural fbm shader. One draw call per deck; no textures required.
 import { useMemo, useRef } from 'react';

@@ -34,14 +34,14 @@ export default function CookieBanner() {
           exit={{ opacity: 0, scale: 0.92 }}
           transition={{ type: 'spring', stiffness: 300, damping: 28 }}
           style={{
-            background: 'rgba(13,13,20,0.96)',
+            background: 'rgba(255,253,248,0.97)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            border: '1px solid var(--line)',
             borderRadius: 14,
             padding: '20px 24px',
             display: 'flex', alignItems: 'center',
             gap: 20, flexWrap: 'wrap',
-            boxShadow: '0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,245,255,0.06)',
+            boxShadow: 'var(--shadow-lg)',
           }}
         >
           {/* Icon */}
@@ -50,7 +50,7 @@ export default function CookieBanner() {
           {/* Text */}
           <p style={{
             flex: 1, minWidth: 200,
-            fontSize: '0.82rem', color: 'rgba(255,255,255,0.6)',
+            fontSize: '0.82rem', color: 'var(--ink-soft)',
             lineHeight: 1.6, margin: 0,
           }}>
             This site uses only essential cookies to ensure basic functionality.
@@ -59,7 +59,7 @@ export default function CookieBanner() {
               onClick={() => document.dispatchEvent(new CustomEvent('open-privacy'))}
               style={{
                 background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-                color: 'var(--accent-cyan)', fontSize: 'inherit',
+                color: 'var(--leaf)', fontSize: 'inherit',
                 fontFamily: 'inherit', textDecoration: 'underline',
               }}
             >
@@ -73,13 +73,13 @@ export default function CookieBanner() {
               onClick={reject}
               style={{
                 padding: '8px 18px', borderRadius: 7, cursor: 'pointer',
-                background: 'transparent', border: '1px solid rgba(255,255,255,0.12)',
-                color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem',
+                background: 'transparent', border: '1px solid var(--line-strong)',
+                color: 'var(--ink-soft)', fontSize: '0.8rem',
                 fontFamily: 'JetBrains Mono, monospace',
                 transition: 'all 0.2s',
               }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--ink-muted)'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line-strong)'}
             >
               Reject
             </button>
@@ -87,13 +87,13 @@ export default function CookieBanner() {
               onClick={accept}
               style={{
                 padding: '8px 18px', borderRadius: 7, cursor: 'pointer',
-                background: 'var(--accent-cyan)', border: 'none',
-                color: '#000', fontSize: '0.8rem', fontWeight: 700,
+                background: 'var(--leaf)', border: 'none',
+                color: '#fff', fontSize: '0.8rem', fontWeight: 700,
                 fontFamily: 'JetBrains Mono, monospace',
                 transition: 'all 0.2s',
               }}
-              onMouseEnter={e => e.currentTarget.style.background = '#00d4e0'}
-              onMouseLeave={e => e.currentTarget.style.background = 'var(--accent-cyan)'}
+              onMouseEnter={e => e.currentTarget.style.background = '#286c3c'}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--leaf)'}
             >
               Accept
             </button>

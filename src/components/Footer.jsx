@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import LegalModal from './LegalModal';
 
-const SECTION = { fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.88rem', marginBottom: 8, marginTop: 20 };
+const SECTION = { fontWeight: 700, color: 'var(--ink)', fontSize: '0.88rem', marginBottom: 8, marginTop: 20 };
 const P       = { marginBottom: 12 };
 
 function PrivacyContent() {
@@ -119,17 +119,13 @@ function CookiesContent() {
       <p style={P}>
         This website uses only one cookie:
       </p>
-      <div style={{
-        background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 8, padding: '14px 16px', marginBottom: 12,
-        fontFamily: 'JetBrains Mono', fontSize: '0.8rem',
-      }}>
-        <div style={{ color: 'var(--accent-cyan)', marginBottom: 6 }}>cookie_consent</div>
-        <div style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>
-          <strong style={{ color: 'rgba(255,255,255,0.8)' }}>Type:</strong> Functional (essential)<br />
-          <strong style={{ color: 'rgba(255,255,255,0.8)' }}>Purpose:</strong> Stores your cookie preference (accepted / rejected)<br />
-          <strong style={{ color: 'rgba(255,255,255,0.8)' }}>Duration:</strong> Persistent (until manually cleared)<br />
-          <strong style={{ color: 'rgba(255,255,255,0.8)' }}>Third party:</strong> No
+      <div className="legal-box">
+        <div style={{ color: 'var(--leaf)', marginBottom: 6 }}>cookie_consent</div>
+        <div style={{ color: 'var(--ink-soft)', lineHeight: 1.6 }}>
+          <strong style={{ color: 'var(--ink)' }}>Type:</strong> Functional (essential)<br />
+          <strong style={{ color: 'var(--ink)' }}>Purpose:</strong> Stores your cookie preference (accepted / rejected)<br />
+          <strong style={{ color: 'var(--ink)' }}>Duration:</strong> Persistent (until manually cleared)<br />
+          <strong style={{ color: 'var(--ink)' }}>Third party:</strong> No
         </div>
       </div>
       <p style={P}>
@@ -173,7 +169,7 @@ export default function Footer() {
             Designed &amp; built by <span>Raúl Ortega Pérez</span> · {new Date().getFullYear()}
           </p>
           <p style={{ marginTop: 8, fontSize:'0.7rem' }}>
-            Made with <span>React</span> + <span>Framer Motion</span>
+            Made with <span>React</span> + <span>Three.js</span> + <span>Framer Motion</span>
           </p>
 
           <div style={{
@@ -182,19 +178,8 @@ export default function Footer() {
           }}>
             {links.map((l, i) => (
               <span key={l.key} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                {i > 0 && (
-                  <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.7rem' }}>·</span>
-                )}
-                <button
-                  onClick={() => setModal(l.key)}
-                  style={{
-                    background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-                    fontFamily: 'JetBrains Mono, monospace', fontSize: '0.7rem',
-                    color: 'rgba(255,255,255,0.3)', transition: 'color 0.2s',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-cyan)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}
-                >
+                {i > 0 && <span className="footer-sep">·</span>}
+                <button type="button" className="footer-link" onClick={() => setModal(l.key)}>
                   {l.label}
                 </button>
               </span>

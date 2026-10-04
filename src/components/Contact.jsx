@@ -37,7 +37,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact">
+    <section id="contact" className="section-sky">
       <div className="container" ref={ref}>
         <motion.div
           initial={{ opacity:0, y:30 }}
@@ -94,9 +94,7 @@ export default function Contact() {
                 >
                   <div className="icon-wrap">{item.icon}</div>
                   <div>
-                    <div style={{ fontSize:'0.72rem', fontFamily:'JetBrains Mono', color:'var(--accent-cyan)', marginBottom:2 }}>
-                      {item.label}
-                    </div>
+                    <div className="contact-link-label">{item.label}</div>
                     <div style={{ fontSize:'0.88rem' }}>{item.value}</div>
                   </div>
                 </a>
@@ -105,26 +103,20 @@ export default function Contact() {
 
             {/* Availability card */}
             <motion.div
-              className="glass"
-              style={{ marginTop:32, padding:'20px 22px', borderRadius:14 }}
+              className="availability-card"
               initial={{ opacity:0, y:20 }}
               animate={visible ? { opacity:1, y:0 } : {}}
               transition={{ delay:0.4 }}
             >
               <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
-                <div style={{
-                  width:10, height:10, borderRadius:'50%',
-                  background:'var(--accent-green)',
-                  boxShadow:'0 0 12px var(--accent-green)',
-                  animation:'pulse 2s ease infinite',
-                }} />
-                <span style={{ fontFamily:'JetBrains Mono', fontSize:'0.75rem', color:'var(--accent-green)' }}>
+                <div className="status-dot" />
+                <span style={{ fontFamily:'var(--font-mono)', fontSize:'0.76rem', fontWeight:500, color:'var(--leaf)' }}>
                   Available for work
                 </span>
               </div>
-              <p style={{ fontSize:'0.85rem', color:'var(--text-secondary)', lineHeight:1.6 }}>
-                Currently open to <strong style={{ color:'var(--text-primary)' }}>full-time</strong> and{' '}
-                <strong style={{ color:'var(--text-primary)' }}>freelance</strong> opportunities.
+              <p style={{ fontSize:'0.88rem', color:'var(--ink-soft)', lineHeight:1.6 }}>
+                Currently open to <strong style={{ color:'var(--ink)' }}>full-time</strong> and{' '}
+                <strong style={{ color:'var(--ink)' }}>freelance</strong> opportunities.
               </p>
             </motion.div>
           </motion.div>

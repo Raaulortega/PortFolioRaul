@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import { useReveal } from '../hooks/useReveal';
 
+// The intro paragraph, relocation paragraph and stats live in the sky journey
+// HUD (SkyJourney.jsx); this section continues the story after landing.
+
 const techs = [
   { icon: '⚛️', label: 'React' },
   { icon: '🟨', label: 'JavaScript' },
@@ -16,80 +19,84 @@ const techs = [
   { icon: '🌐', label: 'REST APIs' },
 ];
 
-const stats = [
-  { number: '22', label: 'Years old' },
-  { number: '4+', label: 'Projects built' },
-  { number: '∞', label: 'Curiosity level' },
-  { number: '100%', label: 'Committed' },
+const codeLines = [
+  { num: '1',  tokens: [{ c:'c-purple', t:'const ' }, { c:'c-cyan', t:'developer' }, { c:'c-white', t:' = {' }] },
+  { num: '2',  tokens: [{ c:'c-gray', t:'  ' }, { c:'c-pink', t:'name' }, { c:'c-white', t:': ' }, { c:'c-green', t:'"Raúl Ortega Pérez",' }] },
+  { num: '3',  tokens: [{ c:'c-gray', t:'  ' }, { c:'c-pink', t:'age' }, { c:'c-white', t:': ' }, { c:'c-orange', t:'22,' }] },
+  { num: '4',  tokens: [{ c:'c-gray', t:'  ' }, { c:'c-pink', t:'degree' }, { c:'c-white', t:': ' }, { c:'c-green', t:'"Computer Engineering",' }] },
+  { num: '5',  tokens: [{ c:'c-gray', t:'  ' }, { c:'c-pink', t:'university' }, { c:'c-white', t:': ' }, { c:'c-green', t:'"UAL · Almería",' }] },
+  { num: '6',  tokens: [{ c:'c-gray', t:'  ' }, { c:'c-pink', t:'skills' }, { c:'c-white', t:': [' }, { c:'c-green', t:'"React"' }, { c:'c-white', t:', ' }, { c:'c-green', t:'"Node"' }, { c:'c-white', t:', ' }, { c:'c-green', t:'"...more"' }, { c:'c-white', t:'],' }] },
+  { num: '7',  tokens: [{ c:'c-gray', t:'  ' }, { c:'c-pink', t:'available' }, { c:'c-white', t:': ' }, { c:'c-cyan', t:'true,' }] },
+  { num: '8',  tokens: [{ c:'c-gray', t:'  ' }, { c:'c-pink', t:'passion' }, { c:'c-white', t:': ' }, { c:'c-green', t:'"Building things that matter"' }] },
+  { num: '9',  tokens: [{ c:'c-white', t:'}' }] },
+  { num: '10', tokens: [] },
+  { num: '11', tokens: [{ c:'c-purple', t:'console' }, { c:'c-white', t:'.' }, { c:'c-yellow', t:'log' }, { c:'c-white', t:'(' }, { c:'c-green', t:'"Hello, World! 👋"' }, { c:'c-white', t:')' }] },
 ];
 
 export default function About() {
   const [ref, visible] = useReveal();
+  const [lowerRef, lowerVisible] = useReveal(0.15);
 
   return (
-    <section id="about" style={{ background:'var(--bg-secondary)' }}>
-      <div className="container" ref={ref}>
-        <motion.div
-          initial={{ opacity:0, y:30 }}
-          animate={visible ? { opacity:1, y:0 } : {}}
-          transition={{ duration:0.7 }}
-        >
-          <div className="section-tag">about me</div>
-          <h2 className="section-title">
-            Who I am &amp;{' '}
-            <span className="gradient-text">what I do</span>
-          </h2>
-        </motion.div>
-
-        <div className="about-grid" style={{ marginTop:60 }}>
-          {/* Left: text + stats */}
+    <section id="about">
+      <div className="container">
+        <div className="about-grid" ref={ref}>
+          {/* Left: story continues */}
           <motion.div
-            className="about-text"
-            initial={{ opacity:0, x:-30 }}
-            animate={visible ? { opacity:1, x:0 } : {}}
-            transition={{ duration:0.7, delay:0.15 }}
+            className="about-lead"
+            initial={{ opacity: 0, y: 30 }}
+            animate={visible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
           >
-            <p>
-              Hey! I'm <strong>Raúl Ortega Pérez</strong>, a 22-year-old <strong>Computer Engineering
-              graduate</strong> from the <strong>University of Almería (UAL), Spain</strong>. I'm
-              passionate about turning complex problems into elegant, user-friendly software.
-            </p>
-            <p>
-              I love building <strong>full-stack web applications</strong> — from crafting pixel-perfect
-              UIs to designing efficient backend architectures. My goal is always clean,
-              maintainable code that scales. I'm actively <strong>open to opportunities across
-              Europe</strong>, including Denmark, Sweden, Norway, Germany and the Netherlands —
-              both on-site and remote.
-            </p>
+            <div className="section-tag">about me</div>
             <p>
               I also have advanced knowledge in <strong>cybersecurity</strong> — including
               attack mitigation, penetration testing, and secure software design — which means
               I don't just build things that work, I build things that are hard to break.
             </p>
+          </motion.div>
 
-            <div className="about-stats">
-              {stats.map((s, i) => (
+          {/* Right: code window */}
+          <motion.div
+            className="code-window"
+            initial={{ opacity: 0, y: 40, rotate: 1.5 }}
+            animate={visible ? { opacity: 1, y: 0, rotate: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
+          >
+            <div className="code-window-bar">
+              <span className="dot-red" />
+              <span className="dot-yellow" />
+              <span className="dot-green" />
+              <span className="filename">RaulOrtega.js</span>
+            </div>
+            <div className="code-window-body">
+              {codeLines.map((line, i) => (
                 <motion.div
-                  key={s.label}
-                  className="stat-card glass"
-                  initial={{ opacity:0, y:20 }}
-                  animate={visible ? { opacity:1, y:0 } : {}}
-                  transition={{ delay: 0.3 + i*0.08, duration:0.5 }}
-                  style={{ borderRadius:12 }}
+                  key={line.num}
+                  className="code-line"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={visible ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.35 + i * 0.06 }}
                 >
-                  <div className="stat-number gradient-text">{s.number}</div>
-                  <div className="stat-label">{s.label}</div>
+                  <span className="code-num">{line.num}</span>
+                  <span>
+                    {line.tokens.map((tok, j) => (
+                      <span key={j} className={tok.c}>{tok.t}</span>
+                    ))}
+                  </span>
                 </motion.div>
               ))}
             </div>
           </motion.div>
+        </div>
 
-          {/* Right: tech grid */}
+        <div className="about-lower" ref={lowerRef}>
+          {/* Tech grid */}
           <motion.div
             className="about-skills-col"
-            initial={{ opacity:0, x:30 }}
-            animate={visible ? { opacity:1, x:0 } : {}}
-            transition={{ duration:0.7, delay:0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={lowerVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
           >
             <h3>// tech stack</h3>
             <div className="tech-grid">
@@ -97,51 +104,36 @@ export default function About() {
                 <motion.div
                   key={t.label}
                   className="tech-item"
-                  initial={{ opacity:0, scale:0.8 }}
-                  animate={visible ? { opacity:1, scale:1 } : {}}
-                  transition={{ delay: 0.3 + i*0.05 }}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={lowerVisible ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 0.15 + i * 0.04 }}
                 >
                   <span className="tech-icon">{t.icon}</span>
                   {t.label}
                 </motion.div>
               ))}
             </div>
+          </motion.div>
 
-            {/* Education card */}
-            <motion.div
-              className="glass"
-              style={{ marginTop:20, padding:'20px 22px', borderRadius:14 }}
-              initial={{ opacity:0, y:20 }}
-              animate={visible ? { opacity:1, y:0 } : {}}
-              transition={{ delay:0.6 }}
-            >
-              <div style={{ display:'flex', alignItems:'flex-start', gap:14 }}>
-                <div style={{
-                  width:44, height:44, borderRadius:10, flexShrink:0,
-                  background:'linear-gradient(135deg, var(--accent-cyan), var(--accent-purple))',
-                  display:'flex', alignItems:'center', justifyContent:'center',
-                  fontSize:'1.3rem',
-                }}>🎓</div>
-                <div>
-                  <p style={{ fontWeight:700, fontSize:'0.95rem', color:'var(--text-primary)', marginBottom:4 }}>
-                    Computer Engineering
-                  </p>
-                  <p style={{ fontSize:'0.82rem', color:'var(--text-secondary)' }}>
-                    Universidad de Almería (UAL) · 2022 – 2026
-                  </p>
-                  <div style={{
-                    marginTop:8, display:'inline-block',
-                    padding:'3px 10px', borderRadius:4,
-                    background:'rgba(0,255,136,0.08)',
-                    border:'1px solid rgba(0,255,136,0.2)',
-                    fontSize:'0.72rem', fontFamily:'JetBrains Mono',
-                    color:'var(--accent-green)',
-                  }}>
-                    Bachelor's Degree
-                  </div>
-                </div>
+          {/* Education card */}
+          <motion.div
+            className="edu-card"
+            initial={{ opacity: 0, y: 30 }}
+            animate={lowerVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+              <div className="edu-icon">🎓</div>
+              <div>
+                <p style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--ink)', marginBottom: 4 }}>
+                  Computer Engineering
+                </p>
+                <p style={{ fontSize: '0.86rem', color: 'var(--ink-soft)' }}>
+                  Universidad de Almería (UAL) · 2022 – 2026
+                </p>
+                <div className="badge" style={{ marginTop: 10 }}>Bachelor's Degree</div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>

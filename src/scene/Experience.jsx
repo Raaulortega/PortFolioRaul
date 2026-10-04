@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/immutability -- three.js materials and uniforms are mutated inside useFrame by design. */
 // Root of the 3D sky-to-valley journey. Lazy-loaded by SkyJourney so three.js
 // never blocks the first paint of the page.
 import { useEffect, useMemo, useRef } from 'react';
