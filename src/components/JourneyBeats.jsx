@@ -7,12 +7,13 @@ import { useTypewriter } from '../hooks/useTypewriter';
 
 /** [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd] in journey progress. */
 const BEATS = {
-  hero:      { band: [0, 0, 0.065, 0.1] },
-  intro:     { band: [0.115, 0.135, 0.255, 0.285], reveal: [0.135, 0.235] },
-  stats:     { band: [0.3, 0.315, 0.415, 0.445], reveal: [0.315, 0.39] },
-  education: { band: [0.46, 0.48, 0.56, 0.59] },
-  europe:    { band: [0.605, 0.625, 0.74, 0.77], reveal: [0.625, 0.72] },
-  // 0.77 → 1: nothing on screen, the valley reveal gets the stage.
+  hero:      { band: [0, 0, 0.06, 0.09] },
+  intro:     { band: [0.1, 0.12, 0.22, 0.245], reveal: [0.12, 0.205] },
+  stats:     { band: [0.26, 0.275, 0.355, 0.38], reveal: [0.275, 0.335] },
+  education: { band: [0.395, 0.41, 0.47, 0.49] },
+  craft:     { band: [0.505, 0.52, 0.6, 0.625], reveal: [0.52, 0.585] },
+  europe:    { band: [0.64, 0.655, 0.75, 0.775], reveal: [0.655, 0.725] },
+  // 0.775 → 1: nothing on screen, the valley reveal gets the stage.
 };
 
 const ROLES = ['Software Developer', 'Frontend Engineer', 'Full Stack Dev', 'Problem Solver'];
@@ -39,10 +40,14 @@ const INTRO_SEGMENTS = [
   { text: '. I\'m passionate about turning complex problems into elegant, user-friendly software.' },
 ];
 
-const EUROPE_SEGMENTS = [
+const CRAFT_SEGMENTS = [
   { text: 'I love building ' },
   { text: 'full-stack web applications', strong: true },
-  { text: ' — from crafting pixel-perfect UIs to designing efficient backend architectures. My goal is always clean, maintainable code that scales. I\'m actively ' },
+  { text: ' — from crafting pixel-perfect UIs to designing efficient backend architectures. My goal is always clean, maintainable code that scales.' },
+];
+
+const EUROPE_SEGMENTS = [
+  { text: 'I\'m actively ' },
   { text: 'open to opportunities across Europe', strong: true },
   { text: ', including Denmark, Sweden, Norway, Germany and the Netherlands — both on-site and remote.' },
 ];
@@ -61,6 +66,7 @@ function tokenize(segments) {
 }
 
 const INTRO_TOKENS = tokenize(INTRO_SEGMENTS);
+const CRAFT_TOKENS = tokenize(CRAFT_SEGMENTS);
 const EUROPE_TOKENS = tokenize(EUROPE_SEGMENTS);
 
 /** Fade + drift wrapper shared by every beat. */
@@ -217,6 +223,14 @@ function EducationBeat({ progress }) {
   );
 }
 
+function CraftBeat({ progress }) {
+  return (
+    <Beat progress={progress} band={BEATS.craft.band}>
+      <RevealText progress={progress} data={CRAFT_TOKENS} range={BEATS.craft.reveal} className="hud-flow-text" />
+    </Beat>
+  );
+}
+
 function EuropeBeat({ progress }) {
   return (
     <Beat progress={progress} band={BEATS.europe.band}>
@@ -232,6 +246,7 @@ export default function JourneyBeats({ progress }) {
       <IntroBeat progress={progress} />
       <StatsBeat progress={progress} />
       <EducationBeat progress={progress} />
+      <CraftBeat progress={progress} />
       <EuropeBeat progress={progress} />
     </>
   );

@@ -206,7 +206,7 @@ section { padding: 120px 0; }
 /* ── SKY JOURNEY ── */
 .journey {
   position: relative;
-  height: 880vh;
+  height: 960vh;
   padding: 0;
   background: #cfe6fb;
 }
@@ -772,7 +772,7 @@ section { padding: 120px 0; }
 }
 
 @media (max-width: 768px) {
-  .journey { height: 720vh; }
+  .journey { height: 780vh; }
 }
 
 @media (max-width: 560px) {
