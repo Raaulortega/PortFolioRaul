@@ -3,13 +3,16 @@ import { Monitor, Server, Wrench, ShieldCheck, Check } from 'lucide-react';
 import { useReveal } from '../hooks/useReveal';
 
 // Proficiency is shown as a tier instead of a percentage, so nothing reads as
-// "half known". Tiers map from the previous scores: >= 90 Expert, >= 85 Advanced,
-// otherwise Proficient.
+// "half known". Within each group skills are listed strongest tier first.
 const TIERS = {
   expert: 'Expert',
   advanced: 'Advanced',
   proficient: 'Proficient',
 };
+const TIER_ORDER = { expert: 0, advanced: 1, proficient: 2 };
+
+// Stable sort: skills with the same tier keep their declared order.
+const byTier = (skills) => [...skills].sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
 
 const skillGroups = [
   {
@@ -17,7 +20,7 @@ const skillGroups = [
     color: '#1f6fb2',
     icon: Monitor,
     skills: [
-      { name: 'React / Next.js', tier: 'advanced' },
+      { name: 'React / Next.js', tier: 'expert' },
       { name: 'JavaScript / TypeScript', tier: 'advanced' },
       { name: 'CSS / Tailwind CSS', tier: 'proficient' },
       { name: 'HTML5 / Accessibility', tier: 'expert' },
@@ -30,7 +33,7 @@ const skillGroups = [
     skills: [
       { name: 'Java / Spring Boot', tier: 'expert' },
       { name: 'Python / FastAPI', tier: 'expert' },
-      { name: 'Node.js / Express', tier: 'proficient' },
+      { name: 'Node.js / Express', tier: 'expert' },
       { name: 'REST API Design', tier: 'advanced' },
     ],
   },
@@ -40,7 +43,7 @@ const skillGroups = [
     icon: Wrench,
     skills: [
       { name: 'Git / GitHub', tier: 'advanced' },
-      { name: 'SQL / PostgreSQL', tier: 'proficient' },
+      { name: 'SQL / PostgreSQL', tier: 'advanced' },
       { name: 'Docker', tier: 'proficient' },
       { name: 'Firebase / MongoDB', tier: 'proficient' },
     ],
@@ -51,7 +54,7 @@ const skillGroups = [
     icon: ShieldCheck,
     skills: [
       { name: 'Attack Mitigation & Hardening', tier: 'advanced' },
-      { name: 'Penetration Testing', tier: 'proficient' },
+      { name: 'Penetration Testing', tier: 'advanced' },
       { name: 'OWASP / Vulnerability Analysis', tier: 'advanced' },
       { name: 'Network Security', tier: 'proficient' },
     ],
@@ -90,7 +93,7 @@ function SkillCard({ group }) {
       </div>
 
       <ul className="skill-list">
-        {group.skills.map((skill, si) => (
+        {byTier(group.skills).map((skill, si) => (
           <motion.li
             key={skill.name}
             className="skill-row"
