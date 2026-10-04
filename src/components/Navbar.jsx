@@ -11,10 +11,21 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
+  // Stay as floating glass pills over the sky; become a solid bar once the
+  // journey has landed in the valley content.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    const onScroll = () => {
+      const journey = document.getElementById('home');
+      const landedAt = journey ? journey.offsetTop + journey.offsetHeight - 80 : 40;
+      setScrolled(window.scrollY > landedAt);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
 
   return (
@@ -25,7 +36,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <div className="nav-inner">
-        <a href="#" className="nav-logo">
+        <a href="#home" className="nav-logo" aria-label="Back to top">
           &lt;<span>ROP</span>/&gt;
         </a>
         <ul className="nav-links">
@@ -37,9 +48,7 @@ export default function Navbar() {
               transition={{ delay: 0.1 + i * 0.07 }}
             >
               <a href={l.href}>
-                <span style={{ color: 'var(--accent-cyan)', marginRight: 4 }}>
-                  {String(i + 1).padStart(2, '0')}.
-                </span>
+                <span>{String(i + 1).padStart(2, '0')}.</span>
                 {l.label}
               </a>
             </motion.li>
