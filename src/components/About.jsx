@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { useReveal } from '../hooks/useReveal';
 
-// The intro paragraph, relocation paragraph and stats live in the sky journey
-// HUD (SkyJourney.jsx); this section continues the story after landing.
+// The intro paragraph, stats, education and relocation paragraph appear as
+// beats during the sky journey (JourneyBeats.jsx); this section continues the
+// story after landing.
 
 const techs = [
   { icon: '⚛️', label: 'React' },
@@ -112,27 +113,6 @@ export default function About() {
                   {t.label}
                 </motion.div>
               ))}
-            </div>
-          </motion.div>
-
-          {/* Education card */}
-          <motion.div
-            className="edu-card"
-            initial={{ opacity: 0, y: 30 }}
-            animate={lowerVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
-              <div className="edu-icon">🎓</div>
-              <div>
-                <p style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--ink)', marginBottom: 4 }}>
-                  Computer Engineering
-                </p>
-                <p style={{ fontSize: '0.86rem', color: 'var(--ink-soft)' }}>
-                  Universidad de Almería (UAL) · 2022 – 2026
-                </p>
-                <div className="badge" style={{ marginTop: 10 }}>Bachelor's Degree</div>
-              </div>
             </div>
           </motion.div>
         </div>

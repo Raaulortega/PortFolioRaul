@@ -14,8 +14,8 @@ const SUN_DIR = new THREE.Vector3(-0.62, 0.3, -0.5).normalize();
 /** Sky / fog colour stops along the journey. */
 const ATMOSPHERE_STOPS = [
   { p: 0.0,  top: '#2a6fdb', horizon: '#a6d3f7', bottom: '#dbeeff', fog: '#cfe6fb', fogNear: 420, fogFar: 1800 },
-  { p: 0.5,  top: '#3b82e0', horizon: '#c4e1f6', bottom: '#e8f2f9', fog: '#d8eaf7', fogNear: 320, fogFar: 1500 },
-  { p: 0.78, top: '#4d8ddc', horizon: '#ffe0b6', bottom: '#f4dbb8', fog: '#f1dcc2', fogNear: 220, fogFar: 1200 },
+  { p: 0.55, top: '#3b82e0', horizon: '#c4e1f6', bottom: '#e8f2f9', fog: '#d8eaf7', fogNear: 320, fogFar: 1500 },
+  { p: 0.83, top: '#4d8ddc', horizon: '#ffe0b6', bottom: '#f4dbb8', fog: '#f1dcc2', fogNear: 220, fogFar: 1200 },
   { p: 1.0,  top: '#5994dc', horizon: '#ffd39b', bottom: '#f1cfa2', fog: '#eed5b6', fogNear: 170, fogFar: 1050 },
 ].map((s) => ({
   ...s,
@@ -165,7 +165,7 @@ function Motes({ count, reducedMotion }) {
   useFrame((state) => {
     material.uniforms.uTime.value = reducedMotion ? 0 : state.clock.elapsedTime;
     material.uniforms.uPixelRatio.value = gl.getPixelRatio();
-    material.uniforms.uVisible.value = smoothstep(0.74, 0.95, journey.current);
+    material.uniforms.uVisible.value = smoothstep(0.8, 0.97, journey.current);
   });
 
   return <points geometry={geometry} material={material} frustumCulled={false} renderOrder={20} />;

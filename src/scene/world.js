@@ -101,9 +101,11 @@ export const journey = { target: 0, current: 0, pointer: { x: 0, y: 0 } };
 /** Camera keyframes along the sky-to-valley descent. `p` is journey progress. */
 export const CAMERA_KEYS = [
   { p: 0.0,  pos: [0, 520, 340],  look: [0, 470, 0] },
-  { p: 0.22, pos: [6, 430, 315],  look: [0, 360, 0] },
-  { p: 0.45, pos: [-6, 300, 285], look: [4, 220, 0] },
-  { p: 0.66, pos: [4, 175, 250],  look: [10, 80, -10] },
-  { p: 0.82, pos: [-6, 108, 205], look: [18, 14, -20] },
+  // Timed so the cloud decks are crossed while the content beats play
+  // (see JourneyBeats.jsx) and the valley opens up only after the last one.
+  { p: 0.26, pos: [6, 430, 315],  look: [0, 360, 0] },
+  { p: 0.5,  pos: [-6, 300, 285], look: [4, 220, 0] },
+  { p: 0.73, pos: [4, 175, 250],  look: [10, 80, -10] },
+  { p: 0.87, pos: [-6, 108, 205], look: [18, 14, -20] },
   { p: 1.0,  pos: [-12, 60, 142], look: [22, 0, -28] },
 ];
