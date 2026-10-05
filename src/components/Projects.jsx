@@ -3,6 +3,7 @@ import { ExternalLink, Github, Lock } from 'lucide-react';
 import { useReveal } from '../hooks/useReveal';
 import CavexDiagram from './CavexDiagram';
 import InnovatikVisual from './InnovatikVisual';
+import LocalAuditVisual from './LocalAuditVisual';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -40,6 +41,19 @@ Fully designed and developed end-to-end — from UI/UX concept to production dep
     accent: '#6a4cc0',
     featured: true,
     visual: <InnovatikVisual />,
+  },
+  {
+    num: '03',
+    title: 'LocalAudit — Browser-Based Security Toolkit',
+    shortTitle: 'LocalAudit',
+    desc: `Free cybersecurity toolkit for developers that runs 100% in the browser, with no backend. Files, secrets and tokens never leave the user's machine — a security tool that uploads your configs would create the very risk it is meant to prevent. Available in English and Spanish, no sign-up, and it even works offline once loaded.
+
+It audits Dockerfile, docker-compose, nginx, .env, package.json and vercel.json against 77 rules mapped to CWE and OWASP, giving a 0–100 score, line-level findings and ready-to-copy fixes, with SARIF 2.1.0 export for GitHub code scanning. It also includes a secrets scanner with redaction, a JWT inspector with weak-secret detection, an HTTP security headers generator and a password-cracking lab. The site itself ships a strict CSP, HSTS preload and no third-party tracking, and is covered by 67 Vitest tests plus end-to-end checks.`,
+    tags: ['TypeScript', 'Application Security', 'CWE / OWASP', 'SARIF', 'Vitest', 'Privacy by Design', 'i18n', 'Vercel'],
+    live: 'https://localaudit.dev/',
+    accent: '#0f8a5f',
+    featured: true,
+    visual: <LocalAuditVisual />,
   },
 ];
 
