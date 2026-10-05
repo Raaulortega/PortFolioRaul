@@ -26,7 +26,7 @@ export default function LegalModal({ open, onClose, title, children }) {
             onClick={onClose}
             style={{
               position: 'fixed', inset: 0, zIndex: 4000,
-              background: 'rgba(0,0,0,0.7)',
+              background: 'rgba(27,42,34,0.35)',
               backdropFilter: 'blur(6px)',
             }}
           />
@@ -45,24 +45,24 @@ export default function LegalModal({ open, onClose, title, children }) {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             style={{
               maxHeight: '80vh',
-              background: 'rgba(10,10,16,0.98)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'rgba(255,253,248,0.99)',
+              border: '1px solid var(--line)',
               borderRadius: 16,
               display: 'flex', flexDirection: 'column',
-              boxShadow: '0 24px 80px rgba(0,0,0,0.7)',
+              boxShadow: 'var(--shadow-lg)', color: 'var(--ink)',
             }}
           >
             {/* Header */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               padding: '20px 24px 18px',
-              borderBottom: '1px solid rgba(255,255,255,0.07)',
+              borderBottom: '1px solid var(--line)',
               flexShrink: 0,
             }}>
               <div>
                 <div style={{
                   fontFamily: 'JetBrains Mono', fontSize: '0.7rem',
-                  color: 'var(--accent-cyan)', letterSpacing: '0.15em',
+                  color: 'var(--leaf)', letterSpacing: '0.15em',
                   textTransform: 'uppercase', marginBottom: 4,
                 }}>
                   Legal
@@ -72,14 +72,14 @@ export default function LegalModal({ open, onClose, title, children }) {
               <button
                 onClick={onClose}
                 style={{
-                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
-                  color: 'var(--text-secondary)', borderRadius: 8,
+                  background: 'var(--bg)', border: '1px solid var(--line)',
+                  color: 'var(--ink-soft)', borderRadius: 8,
                   width: 34, height: 34, cursor: 'pointer',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   transition: 'all 0.2s', flexShrink: 0,
                 }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
-                onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--ink)'; e.currentTarget.style.background = 'var(--leaf-soft)'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = 'var(--ink-soft)'; e.currentTarget.style.background = 'var(--bg)'; }}
               >
                 <X size={16} />
               </button>
@@ -89,7 +89,7 @@ export default function LegalModal({ open, onClose, title, children }) {
             <div style={{
               padding: '22px 24px 28px',
               overflowY: 'auto',
-              fontSize: '0.88rem', color: 'rgba(255,255,255,0.6)',
+              fontSize: '0.88rem', color: 'var(--ink-soft)',
               lineHeight: 1.75,
             }}>
               {children}

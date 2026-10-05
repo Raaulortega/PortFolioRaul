@@ -22,7 +22,7 @@ storage of FITS scientific images. The service includes a priority-based lease s
 concurrent access and structured JSON logging for production observability.`,
     tags: ['Python 3.11', 'FastAPI', 'Docker', 'INDIGO Astronomy', 'WebSockets', 'Microservices', 'FITS'],
     isPrivate: true,
-    accent: 'var(--accent-cyan)',
+    accent: '#1f6fb2',
     featured: true,
     visual: <CavexDiagram />,
     // Replace visual with the line below once you have a screenshot:
@@ -37,7 +37,7 @@ concurrent access and structured JSON logging for production observability.`,
 Fully designed and developed end-to-end — from UI/UX concept to production deployment — with a conversion-focused layout, smooth interactions, and a fully responsive design across all devices.`,
     tags: ['SvelteKit', 'UI/UX Design', 'Responsive Design', 'AI Automation', 'Web Development'],
     live: 'https://www.innovatik.pro/',
-    accent: 'var(--accent-purple)',
+    accent: '#6a4cc0',
     featured: true,
     visual: <InnovatikVisual />,
   },
@@ -47,14 +47,7 @@ Fully designed and developed end-to-end — from UI/UX concept to production dep
 
 function PrivateBadge() {
   return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: 5,
-      padding: '3px 10px', borderRadius: 4,
-      background: 'rgba(244,114,182,0.08)',
-      border: '1px solid rgba(244,114,182,0.2)',
-      fontFamily: 'JetBrains Mono, monospace',
-      fontSize: '0.68rem', color: '#f472b6',
-    }}>
+    <span className="private-badge">
       <Lock size={10} /> Private — NDA
     </span>
   );

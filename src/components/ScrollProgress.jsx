@@ -21,9 +21,9 @@ export default function ScrollProgress() {
       style={{
         position: 'fixed', top: 0, left: 0, zIndex: 2000,
         height: 2, originX: 0,
-        background: 'linear-gradient(90deg, #00f5ff, #8b5cf6, #00ff88)',
+        background: 'linear-gradient(90deg, #4f9ee6, #4fae5f, #e8a33d)',
         scaleX: spring,
-        boxShadow: '0 0 8px rgba(0,245,255,0.6)',
+        boxShadow: '0 0 8px rgba(232,163,61,0.45)',
       }}
       className="scroll-progress-bar"
     />

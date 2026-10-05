@@ -2,7 +2,7 @@ import './index.css';
 import Navbar from './components/Navbar';
 import ScrollProgress from './components/ScrollProgress';
 import CookieBanner from './components/CookieBanner';
-import Hero from './components/Hero';
+import SkyJourney from './components/SkyJourney';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
@@ -14,11 +14,13 @@ export default function App() {
     <>
       <ScrollProgress />
       <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+      <SkyJourney />
+      <main className="valley-content">
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
       <Footer />
       <CookieBanner />
     </>
