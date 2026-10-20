@@ -51,9 +51,24 @@ Fully designed and developed end-to-end — from UI/UX concept to production dep
 It audits Dockerfile, docker-compose, nginx, .env, package.json and vercel.json against 77 rules mapped to CWE and OWASP, giving a 0–100 score, line-level findings and ready-to-copy fixes, with SARIF 2.1.0 export for GitHub code scanning. It also includes a secrets scanner with redaction, a JWT inspector with weak-secret detection, an HTTP security headers generator and a password-cracking lab. The site itself ships a strict CSP, HSTS preload and no third-party tracking, and is covered by 67 Vitest tests plus end-to-end checks.`,
     tags: ['TypeScript', 'Application Security', 'CWE / OWASP', 'SARIF', 'Vitest', 'Privacy by Design', 'i18n', 'Vercel'],
     live: 'https://localaudit.dev/',
+    repo: 'https://github.com/Raaulortega/Audit',
     accent: '#0f8a5f',
     featured: true,
     visual: <LocalAuditVisual />,
+  },
+  {
+    num: '04',
+    title: 'This Portfolio — 3D Scroll Journey',
+    shortTitle: 'Portfolio',
+    desc: `The site you are on right now. Instead of a classic landing page, the visitor scrolls down from above the clouds into a sunlit valley, and each stage of the descent reveals a part of my story — who I am, what I do and where I want to work.
+
+The 3D world is built with Three.js and React Three Fiber: a procedurally generated low-poly landscape with custom noise, volumetric-looking clouds and a scroll-driven camera path, lazy-loaded so the rest of the page stays fast. The sections around it use Framer Motion for reveal animations, and the whole site ships with a strict Content-Security-Policy, Open Graph previews, structured data and a sitemap for SEO.`,
+    tags: ['React 19', 'Three.js', 'React Three Fiber', 'Framer Motion', 'Vite', 'WebGL', 'SEO', 'Vercel'],
+    live: 'https://iamraul.pro/',
+    repo: 'https://github.com/Raaulortega/PortFolioRaul',
+    accent: '#2f7d46',
+    featured: true,
+    image: '/og-image-2026.png',
   },
 ];
 
@@ -112,11 +127,18 @@ function FeaturedCard({ p, visible, i }) {
             ))}
           </div>
 
-          {p.live && (
+          {(p.live || p.repo) && (
             <div className="project-links" style={{ marginTop: 20 }}>
-              <a href={p.live} target="_blank" rel="noreferrer" className="project-link">
-                <ExternalLink size={14} /> Live site
-              </a>
+              {p.live && (
+                <a href={p.live} target="_blank" rel="noreferrer" className="project-link">
+                  <ExternalLink size={14} /> Live site
+                </a>
+              )}
+              {p.repo && (
+                <a href={p.repo} target="_blank" rel="noreferrer" className="project-link">
+                  <Github size={14} /> Source code
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -128,7 +150,12 @@ function FeaturedCard({ p, visible, i }) {
               <img
                 src={p.image}
                 alt={p.shortTitle}
-                style={{ width: '100%', borderRadius: 10, objectFit: 'cover' }}
+                loading="lazy"
+                style={{
+                  width: '100%', borderRadius: 12, objectFit: 'cover',
+                  boxShadow: 'var(--shadow-md)',
+                  border: `1px solid ${p.accent}29`,
+                }}
               />
             )
             : p.visual
