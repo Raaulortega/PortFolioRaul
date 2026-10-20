@@ -1,8 +1,15 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import { useCopy } from '../i18n/lang';
+
+const COPY = {
+  en: { close: 'Close' },
+  es: { close: 'Cerrar' },
+};
 
 export default function LegalModal({ open, onClose, title, children }) {
+  const t = useCopy(COPY);
   /* Close on Escape */
   useEffect(() => {
     const handler = e => { if (e.key === 'Escape') onClose(); };
@@ -71,6 +78,7 @@ export default function LegalModal({ open, onClose, title, children }) {
               </div>
               <button
                 onClick={onClose}
+                aria-label={t.close}
                 style={{
                   background: 'var(--bg)', border: '1px solid var(--line)',
                   color: 'var(--ink-soft)', borderRadius: 8,

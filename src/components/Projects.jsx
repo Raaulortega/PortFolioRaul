@@ -4,6 +4,7 @@ import { useReveal } from '../hooks/useReveal';
 import CavexDiagram from './CavexDiagram';
 import InnovatikVisual from './InnovatikVisual';
 import LocalAuditVisual from './LocalAuditVisual';
+import { useCopy, useLang } from '../i18n/lang';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -28,6 +29,13 @@ concurrent access and structured JSON logging for production observability.`,
     visual: <CavexDiagram />,
     // Replace visual with the line below once you have a screenshot:
     // image: '/projects/cavex-screenshot.png',
+    es: {
+      title: 'CAVEX_V2 — Observatorio de Calar Alto',
+      desc: `Renovación del sistema de monitorización de extinción atmosférica del Observatorio de Calar Alto (Almería). El sistema anterior era difícil de mantener y no admitía integraciones modernas, así que el observatorio encargó reconstruirlo por completo sobre una arquitectura de microservicios.
+
+Diseñé y desarrollé cavex_imager — el servicio central de control de la cámara —, que opera una cámara astronómica QHY600 a través del bus INDIGO, ejecuta secuencias de imágenes únicas y programadas, emite telemetría en tiempo real por WebSocket a 1–2 Hz y coordina el almacenamiento de imágenes científicas FITS. El servicio incluye un sistema de reservas por prioridad para un acceso concurrente seguro y logs JSON estructurados para la observabilidad en producción.`,
+      tags: ['Python 3.11', 'FastAPI', 'Docker', 'INDIGO Astronomy', 'WebSockets', 'Microservicios', 'FITS'],
+    },
   },
   {
     num: '02',
@@ -41,6 +49,12 @@ Fully designed and developed end-to-end — from UI/UX concept to production dep
     accent: '#6a4cc0',
     featured: true,
     visual: <InnovatikVisual />,
+    es: {
+      desc: `Web corporativa diseñada y desarrollada desde cero para dos líneas de servicio: desarrollo web a medida para empresas que quieren crecer y automatización con IA para reducir costes y optimizar procesos.
+
+Diseñada y desarrollada de principio a fin — desde el concepto UI/UX hasta el despliegue en producción — con una maquetación orientada a la conversión, interacciones fluidas y un diseño totalmente responsive en todos los dispositivos.`,
+      tags: ['SvelteKit', 'Diseño UI/UX', 'Diseño responsive', 'Automatización con IA', 'Desarrollo web'],
+    },
   },
   {
     num: '03',
@@ -55,6 +69,13 @@ It audits Dockerfile, docker-compose, nginx, .env, package.json and vercel.json 
     accent: '#0f8a5f',
     featured: true,
     visual: <LocalAuditVisual />,
+    es: {
+      title: 'LocalAudit — Herramientas de seguridad en el navegador',
+      desc: `Caja de herramientas de ciberseguridad gratuita para desarrolladores que funciona 100 % en el navegador, sin backend. Los ficheros, secretos y tokens nunca salen del ordenador del usuario: una herramienta de seguridad que sube tus configuraciones crearía justo el riesgo que pretende evitar. Está en inglés y español, no pide registro y funciona incluso sin conexión una vez cargada.
+
+Audita Dockerfile, docker-compose, nginx, .env, package.json y vercel.json con 77 reglas mapeadas a CWE y OWASP, y da una puntuación de 0 a 100, hallazgos por línea y parches listos para copiar, con exportación SARIF 2.1.0 para GitHub code scanning. Incluye además un escáner de secretos que los oculta, un inspector JWT que detecta secretos débiles, un generador de cabeceras de seguridad HTTP y un laboratorio de contraseñas. La propia web usa una CSP estricta, HSTS con preload y nada de rastreo de terceros, y está cubierta por 67 tests con Vitest y pruebas end-to-end.`,
+      tags: ['TypeScript', 'Seguridad de aplicaciones', 'CWE / OWASP', 'SARIF', 'Vitest', 'Privacidad por diseño', 'i18n', 'Vercel'],
+    },
   },
   {
     num: '04',
@@ -69,20 +90,52 @@ The 3D world is built with Three.js and React Three Fiber: a procedurally genera
     accent: '#2f7d46',
     featured: true,
     image: '/og-image-2026.png',
+    es: {
+      title: 'Este portfolio — Viaje 3D con scroll',
+      desc: `La web en la que estás ahora mismo. En lugar de una landing clásica, el visitante desciende con el scroll desde encima de las nubes hasta un valle soleado, y cada tramo del descenso cuenta una parte de mi historia: quién soy, a qué me dedico y dónde quiero trabajar.
+
+El mundo 3D está hecho con Three.js y React Three Fiber: un paisaje low-poly generado proceduralmente con ruido propio, nubes con aspecto volumétrico y una cámara guiada por el scroll, cargado de forma diferida para que el resto de la página siga siendo rápida. Las secciones de alrededor usan Framer Motion para las animaciones, y toda la web incluye una Content-Security-Policy estricta, previsualizaciones Open Graph, datos estructurados, sitemap y versión en inglés y español.`,
+      live: 'https://iamraul.pro/es',
+    },
   },
 ];
+
+const COPY = {
+  en: {
+    tag: 'featured work',
+    title: ["Things I've ", 'built'],
+    subtitle: 'A selection of projects that showcase my skills in building modern, scalable web applications and systems end-to-end.',
+    private: 'Private — NDA',
+    liveSite: 'Live site',
+    liveDemo: 'Live demo',
+    source: 'Source code',
+    comingSoon: 'Coming soon',
+  },
+  es: {
+    tag: 'proyectos destacados',
+    title: ['Cosas que he ', 'construido'],
+    subtitle: 'Una selección de proyectos que muestran cómo diseño y construyo aplicaciones web y sistemas modernos y escalables de principio a fin.',
+    private: 'Privado — NDA',
+    liveSite: 'Ver web',
+    liveDemo: 'Ver demo',
+    source: 'Código fuente',
+    comingSoon: 'Próximamente',
+  },
+};
 
 // ─── Components ──────────────────────────────────────────────────────────────
 
 function PrivateBadge() {
+  const t = useCopy(COPY);
   return (
     <span className="private-badge">
-      <Lock size={10} /> Private — NDA
+      <Lock size={10} /> {t.private}
     </span>
   );
 }
 
 function FeaturedCard({ p, visible, i }) {
+  const t = useCopy(COPY);
   return (
     <motion.div
       className="project-card"
@@ -131,12 +184,12 @@ function FeaturedCard({ p, visible, i }) {
             <div className="project-links" style={{ marginTop: 20 }}>
               {p.live && (
                 <a href={p.live} target="_blank" rel="noreferrer" className="project-link">
-                  <ExternalLink size={14} /> Live site
+                  <ExternalLink size={14} /> {t.liveSite}
                 </a>
               )}
               {p.repo && (
                 <a href={p.repo} target="_blank" rel="noreferrer" className="project-link">
-                  <Github size={14} /> Source code
+                  <Github size={14} /> {t.source}
                 </a>
               )}
             </div>
@@ -167,6 +220,7 @@ function FeaturedCard({ p, visible, i }) {
 }
 
 function RegularCard({ p, visible, i }) {
+  const t = useCopy(COPY);
   return (
     <motion.div
       className="project-card"
@@ -197,17 +251,17 @@ function RegularCard({ p, visible, i }) {
         <div className="project-links">
           {p.live && p.live !== '#' && (
             <a href={p.live} target="_blank" rel="noreferrer" className="project-link">
-              <ExternalLink size={14} /> Live demo
+              <ExternalLink size={14} /> {t.liveDemo}
             </a>
           )}
           {p.repo && p.repo !== '#' && (
             <a href={p.repo} target="_blank" rel="noreferrer" className="project-link">
-              <Github size={14} /> Source code
+              <Github size={14} /> {t.source}
             </a>
           )}
           {(!p.live || p.live === '#') && (!p.repo || p.repo === '#') && (
             <span className="project-link" style={{ cursor: 'default', opacity: 0.45 }}>
-              <Lock size={14} /> Coming soon
+              <Lock size={14} /> {t.comingSoon}
             </span>
           )}
         </div>
@@ -219,7 +273,11 @@ function RegularCard({ p, visible, i }) {
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 export default function Projects() {
+  const lang = useLang();
+  const t = useCopy(COPY);
   const [ref, visible] = useReveal();
+  // Each project lists its Spanish overrides (title, desc, tags, links) under `es`.
+  const localized = projects.map(p => (p[lang] ? { ...p, ...p[lang] } : p));
 
   return (
     <section id="projects">
@@ -230,19 +288,16 @@ export default function Projects() {
           animate={visible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="section-tag">featured work</div>
+          <div className="section-tag">{t.tag}</div>
           <h2 className="section-title">
-            Things I've{' '}
-            <span className="gradient-text">built</span>
+            {t.title[0]}
+            <span className="gradient-text">{t.title[1]}</span>
           </h2>
-          <p className="section-subtitle">
-            A selection of projects that showcase my skills in building modern,
-            scalable web applications and systems end-to-end.
-          </p>
+          <p className="section-subtitle">{t.subtitle}</p>
         </motion.div>
 
         <div className="projects-grid">
-          {projects.map((p, i) =>
+          {localized.map((p, i) =>
             p.featured
               ? <FeaturedCard key={p.num} p={p} visible={visible} i={i} />
               : <RegularCard  key={p.num} p={p} visible={visible} i={i} />

@@ -2,11 +2,38 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Send } from 'lucide-react';
 import { useReveal } from '../hooks/useReveal';
+import { useCopy } from '../i18n/lang';
 
 // ✏️  Paste your Formspree endpoint here after creating the form at formspree.io
 const FORMSPREE_URL = 'https://formspree.io/f/xwvakbbk';
 
+const COPY = {
+  en: {
+    tag: 'contact',
+    title: ["Let's ", 'work together'],
+    subtitle: "I'm actively looking for new opportunities. Whether you have a project in mind or just want to say hello — my inbox is always open.",
+    available: 'Available for work',
+    availability: ['Currently open to ', 'full-time', ' and ', 'freelance', ' opportunities.'],
+    name: 'Name', namePh: 'Your name',
+    email: 'Email', emailPh: 'your@email.com',
+    message: 'Message', messagePh: 'Tell me about your project...',
+    sending: 'Sending…', sent: '✓ Message sent!', error: '✕ Something went wrong', send: 'Send message',
+  },
+  es: {
+    tag: 'contacto',
+    title: ['Trabajemos ', 'juntos'],
+    subtitle: 'Estoy buscando activamente nuevas oportunidades. Tanto si tienes un proyecto en mente como si solo quieres saludar, escríbeme.',
+    available: 'Disponible para trabajar',
+    availability: ['Abierto a oportunidades a ', 'jornada completa', ' y ', 'freelance', '.'],
+    name: 'Nombre', namePh: 'Tu nombre',
+    email: 'Email', emailPh: 'tu@email.com',
+    message: 'Mensaje', messagePh: 'Cuéntame tu proyecto...',
+    sending: 'Enviando…', sent: '✓ ¡Mensaje enviado!', error: '✕ Algo ha fallado', send: 'Enviar mensaje',
+  },
+};
+
 export default function Contact() {
+  const t = useCopy(COPY);
   const [ref, visible] = useReveal();
   const [form, setForm] = useState({ name:'', email:'', message:'' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
@@ -45,15 +72,12 @@ export default function Contact() {
           transition={{ duration:0.7 }}
           style={{ marginBottom:60 }}
         >
-          <div className="section-tag">contact</div>
+          <div className="section-tag">{t.tag}</div>
           <h2 className="section-title">
-            Let's{' '}
-            <span className="gradient-text">work together</span>
+            {t.title[0]}
+            <span className="gradient-text">{t.title[1]}</span>
           </h2>
-          <p className="section-subtitle">
-            I'm actively looking for new opportunities. Whether you have a project in mind
-            or just want to say hello — my inbox is always open.
-          </p>
+          <p className="section-subtitle">{t.subtitle}</p>
         </motion.div>
 
         <div className="contact-grid">
@@ -111,12 +135,12 @@ export default function Contact() {
               <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
                 <div className="status-dot" />
                 <span style={{ fontFamily:'var(--font-mono)', fontSize:'0.76rem', fontWeight:500, color:'var(--leaf)' }}>
-                  Available for work
+                  {t.available}
                 </span>
               </div>
               <p style={{ fontSize:'0.88rem', color:'var(--ink-soft)', lineHeight:1.6 }}>
-                Currently open to <strong style={{ color:'var(--ink)' }}>full-time</strong> and{' '}
-                <strong style={{ color:'var(--ink)' }}>freelance</strong> opportunities.
+                {t.availability[0]}<strong style={{ color:'var(--ink)' }}>{t.availability[1]}</strong>{t.availability[2]}
+                <strong style={{ color:'var(--ink)' }}>{t.availability[3]}</strong>{t.availability[4]}
               </p>
             </motion.div>
           </motion.div>
@@ -129,26 +153,26 @@ export default function Contact() {
           >
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">{t.name}</label>
                 <input
                   id="name" name="name" type="text"
-                  placeholder="Your name"
+                  placeholder={t.namePh}
                   value={form.name} onChange={handleChange} required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">{t.email}</label>
                 <input
                   id="email" name="email" type="email"
-                  placeholder="your@email.com"
+                  placeholder={t.emailPh}
                   value={form.email} onChange={handleChange} required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message">{t.message}</label>
                 <textarea
                   id="message" name="message"
-                  placeholder="Tell me about your project..."
+                  placeholder={t.messagePh}
                   value={form.message} onChange={handleChange} required
                 />
               </div>
@@ -159,10 +183,10 @@ export default function Contact() {
                 whileHover={{ scale:1.02 }}
                 whileTap={{ scale:0.98 }}
               >
-                {status === 'sending' && 'Sending…'}
-              {status === 'sent'    && '✓ Message sent!'}
-              {status === 'error'   && '✕ Something went wrong'}
-              {status === 'idle'    && <><Send size={15} /> Send message</>}
+                {status === 'sending' && t.sending}
+              {status === 'sent'    && t.sent}
+              {status === 'error'   && t.error}
+              {status === 'idle'    && <><Send size={15} /> {t.send}</>}
               </motion.button>
             </form>
           </motion.div>

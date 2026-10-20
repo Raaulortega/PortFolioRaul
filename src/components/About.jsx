@@ -1,5 +1,17 @@
 import { motion } from 'framer-motion';
 import { useReveal } from '../hooks/useReveal';
+import { useCopy } from '../i18n/lang';
+
+const COPY = {
+  en: {
+    tag: 'about me',
+    lead: ['I also have advanced knowledge in ', 'cybersecurity', " — including attack mitigation, penetration testing, and secure software design — which means I don't just build things that work, I build things that are hard to break."],
+  },
+  es: {
+    tag: 'sobre mí',
+    lead: ['También tengo conocimientos avanzados de ', 'ciberseguridad', ' — mitigación de ataques, pruebas de penetración y diseño de software seguro —, así que no solo construyo cosas que funcionan: construyo cosas difíciles de romper.'],
+  },
+};
 
 // The intro paragraph, stats, education and relocation paragraph appear as
 // beats during the sky journey (JourneyBeats.jsx); this section continues the
@@ -35,6 +47,7 @@ const codeLines = [
 ];
 
 export default function About() {
+  const t = useCopy(COPY);
   const [ref, visible] = useReveal();
   const [lowerRef, lowerVisible] = useReveal(0.15);
 
@@ -49,11 +62,9 @@ export default function About() {
             animate={visible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <div className="section-tag">about me</div>
+            <div className="section-tag">{t.tag}</div>
             <p>
-              I also have advanced knowledge in <strong>cybersecurity</strong> — including
-              attack mitigation, penetration testing, and secure software design — which means
-              I don't just build things that work, I build things that are hard to break.
+              {t.lead[0]}<strong>{t.lead[1]}</strong>{t.lead[2]}
             </p>
           </motion.div>
 

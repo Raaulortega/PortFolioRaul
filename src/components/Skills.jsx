@@ -1,13 +1,51 @@
 import { motion } from 'framer-motion';
 import { Monitor, Server, Wrench, ShieldCheck, Check } from 'lucide-react';
 import { useReveal } from '../hooks/useReveal';
+import { useCopy } from '../i18n/lang';
 
 // Proficiency is shown as a tier instead of a percentage, so nothing reads as
 // "half known". Within each group skills are listed strongest tier first.
-const TIERS = {
-  expert: 'Expert',
-  advanced: 'Advanced',
-  proficient: 'Proficient',
+const COPY = {
+  en: {
+    tiers: { expert: 'Expert', advanced: 'Advanced', proficient: 'Proficient' },
+    groups: {
+      frontend: 'Frontend',
+      backend: 'Backend',
+      tools: 'Tools & Infrastructure',
+      security: 'Cybersecurity',
+    },
+    tag: 'expertise',
+    title: ['Skills & ', 'technologies'],
+    subtitle: 'A breakdown of the technologies I work with regularly and my proficiency in each area.',
+    alsoFamiliar: '// also familiar with',
+    familiar: ['Algorithms', 'Data Structures', 'Design Patterns', 'CI/CD', 'Agile', 'TDD',
+      'Responsive Design', 'Web Performance', 'SEO Basics', 'Linux'],
+    skillNames: {},
+  },
+  es: {
+    tiers: { expert: 'Experto', advanced: 'Avanzado', proficient: 'Competente' },
+    groups: {
+      frontend: 'Frontend',
+      backend: 'Backend',
+      tools: 'Herramientas e infraestructura',
+      security: 'Ciberseguridad',
+    },
+    tag: 'experiencia',
+    title: ['Habilidades y ', 'tecnologías'],
+    subtitle: 'Las tecnologías con las que trabajo habitualmente y mi nivel en cada área.',
+    alsoFamiliar: '// también trabajo con',
+    familiar: ['Algoritmos', 'Estructuras de datos', 'Patrones de diseño', 'CI/CD', 'Agile', 'TDD',
+      'Diseño responsive', 'Rendimiento web', 'SEO básico', 'Linux'],
+    // Only names that are phrases need translating; technology names stay as they are.
+    skillNames: {
+      'HTML5 / Accessibility': 'HTML5 / Accesibilidad',
+      'REST API Design': 'Diseño de APIs REST',
+      'Attack Mitigation & Hardening': 'Mitigación de ataques y hardening',
+      'Penetration Testing': 'Pruebas de penetración',
+      'OWASP / Vulnerability Analysis': 'OWASP / Análisis de vulnerabilidades',
+      'Network Security': 'Seguridad de redes',
+    },
+  },
 };
 const TIER_ORDER = { expert: 0, advanced: 1, proficient: 2 };
 
@@ -16,7 +54,7 @@ const byTier = (skills) => [...skills].sort((a, b) => TIER_ORDER[a.tier] - TIER_
 
 const skillGroups = [
   {
-    title: 'Frontend',
+    id: 'frontend',
     color: '#1f6fb2',
     icon: Monitor,
     skills: [
@@ -27,7 +65,7 @@ const skillGroups = [
     ],
   },
   {
-    title: 'Backend',
+    id: 'backend',
     color: '#2f7d46',
     icon: Server,
     skills: [
@@ -38,7 +76,7 @@ const skillGroups = [
     ],
   },
   {
-    title: 'Tools & Infrastructure',
+    id: 'tools',
     color: '#a5630a',
     icon: Wrench,
     skills: [
@@ -49,7 +87,7 @@ const skillGroups = [
     ],
   },
   {
-    title: 'Cybersecurity',
+    id: 'security',
     color: '#c4472a',
     icon: ShieldCheck,
     skills: [
@@ -61,20 +99,19 @@ const skillGroups = [
   },
 ];
 
-const alsoFamiliar = ['Algorithms', 'Data Structures', 'Design Patterns', 'CI/CD', 'Agile', 'TDD',
-  'Responsive Design', 'Web Performance', 'SEO Basics', 'Linux'];
-
 function TierBadge({ tier, color }) {
+  const { tiers } = useCopy(COPY);
   return (
     <span className={`tier tier--${tier}`} style={{ '--tier-color': color }}>
       {tier === 'expert' && <span className="tier-spark" aria-hidden="true">✦</span>}
-      {TIERS[tier]}
+      {tiers[tier]}
     </span>
   );
 }
 
 /* Each card observes itself — fires when that card enters the viewport */
 function SkillCard({ group }) {
+  const { groups, skillNames } = useCopy(COPY);
   const [ref, visible] = useReveal(0.3);
   const Icon = group.icon;
 
@@ -89,7 +126,7 @@ function SkillCard({ group }) {
     >
       <div className="skill-card-head">
         <div className="skill-card-icon"><Icon size={20} /></div>
-        <h3 className="skill-card-title">{group.title}</h3>
+        <h3 className="skill-card-title">{groups[group.id]}</h3>
       </div>
 
       <ul className="skill-list">
@@ -102,7 +139,7 @@ function SkillCard({ group }) {
             transition={{ delay: 0.15 + si * 0.08, duration: 0.45 }}
           >
             <span className="skill-check" aria-hidden="true"><Check size={13} strokeWidth={3} /></span>
-            <span className="skill-name">{skill.name}</span>
+            <span className="skill-name">{skillNames[skill.name] ?? skill.name}</span>
             <TierBadge tier={skill.tier} color={group.color} />
           </motion.li>
         ))}
@@ -112,6 +149,7 @@ function SkillCard({ group }) {
 }
 
 export default function Skills() {
+  const t = useCopy(COPY);
   const [headerRef, headerVisible] = useReveal(0.2);
 
   return (
@@ -124,20 +162,17 @@ export default function Skills() {
           transition={{ duration: 0.7 }}
           style={{ marginBottom: 60 }}
         >
-          <div className="section-tag">expertise</div>
+          <div className="section-tag">{t.tag}</div>
           <h2 className="section-title">
-            Skills &amp;{' '}
-            <span className="gradient-text">technologies</span>
+            {t.title[0]}
+            <span className="gradient-text">{t.title[1]}</span>
           </h2>
-          <p className="section-subtitle">
-            A breakdown of the technologies I work with regularly and
-            my proficiency in each area.
-          </p>
+          <p className="section-subtitle">{t.subtitle}</p>
         </motion.div>
 
         <div className="skills-grid">
           {skillGroups.map((group) => (
-            <SkillCard key={group.title} group={group} />
+            <SkillCard key={group.id} group={group} />
           ))}
         </div>
 
@@ -148,10 +183,10 @@ export default function Skills() {
             color: 'var(--ink-muted)', textTransform: 'uppercase',
             letterSpacing: '0.15em', marginBottom: 20,
           }}>
-            // also familiar with
+            {t.alsoFamiliar}
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
-            {alsoFamiliar.map(c => (
+            {t.familiar.map(c => (
               <span key={c} className="pill">{c}</span>
             ))}
           </div>

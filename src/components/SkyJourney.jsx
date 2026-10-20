@@ -2,6 +2,12 @@ import { Component, useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import JourneyBeats from './JourneyBeats';
 import { getQuality, journey } from '../scene/world';
+import { useCopy } from '../i18n/lang';
+
+const COPY = {
+  en: { label: 'Introduction', scroll: 'Scroll to explore', locale: 'en-US' },
+  es: { label: 'Introducción', scroll: 'Desliza para explorar', locale: 'es-ES' },
+};
 
 function supportsWebGL() {
   try {
@@ -44,6 +50,7 @@ class SceneBoundary extends Component {
 
 /** Decorative altimeter. Owns its own state so scrolling never re-renders the canvas. */
 function AltitudeRail({ progress }) {
+  const { locale } = useCopy(COPY);
   const [altitude, setAltitude] = useState(5200);
   const railScale = useTransform(progress, [0, 1], [0, 1]);
   useMotionValueEvent(progress, 'change', (v) => {
@@ -55,7 +62,7 @@ function AltitudeRail({ progress }) {
       <div className="journey-rail-track">
         <motion.div className="journey-rail-fill" style={{ scaleY: railScale }} />
       </div>
-      <span className="journey-rail-value mono">{altitude.toLocaleString('en-US')} m</span>
+      <span className="journey-rail-value mono">{altitude.toLocaleString(locale)} m</span>
     </div>
   );
 }
@@ -82,6 +89,7 @@ function Loader({ progress, done }) {
 }
 
 export default function SkyJourney() {
+  const t = useCopy(COPY);
   const sectionRef = useRef(null);
   const reducedMotion = usePrefersReducedMotion();
   const [quality] = useState(getQuality);
@@ -165,7 +173,7 @@ export default function SkyJourney() {
   const landingOpacity = useTransform(scrollYProgress, [0.9, 1], [0, 1]);
 
   return (
-    <section id="home" ref={sectionRef} className="journey" aria-label="Introduction">
+    <section id="home" ref={sectionRef} className="journey" aria-label={t.label}>
       <div className="journey-stage">
         <div className="journey-fallback" aria-hidden="true" />
         {use3D && Experience && (
@@ -194,7 +202,7 @@ export default function SkyJourney() {
           onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
         >
           <span className="scroll-indicator-mouse"><span /></span>
-          <span className="mono">Scroll to explore</span>
+          <span className="mono">{t.scroll}</span>
         </motion.button>
 
         <motion.div className="journey-landing" style={{ opacity: landingOpacity }} aria-hidden="true" />

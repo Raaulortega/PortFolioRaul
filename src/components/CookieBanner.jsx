@@ -1,7 +1,24 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useCopy } from '../i18n/lang';
+
+const COPY = {
+  en: {
+    text: 'This site uses only essential cookies to ensure basic functionality. No tracking or advertising cookies are used.',
+    privacy: 'Privacy Policy',
+    reject: 'Reject',
+    accept: 'Accept',
+  },
+  es: {
+    text: 'Esta web solo usa cookies esenciales para funcionar correctamente. No se usan cookies de seguimiento ni de publicidad.',
+    privacy: 'Política de privacidad',
+    reject: 'Rechazar',
+    accept: 'Aceptar',
+  },
+};
 
 export default function CookieBanner() {
+  const t = useCopy(COPY);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -53,8 +70,7 @@ export default function CookieBanner() {
             fontSize: '0.82rem', color: 'var(--ink-soft)',
             lineHeight: 1.6, margin: 0,
           }}>
-            This site uses only essential cookies to ensure basic functionality.
-            No tracking or advertising cookies are used.{' '}
+            {t.text}{' '}
             <button
               onClick={() => document.dispatchEvent(new CustomEvent('open-privacy'))}
               style={{
@@ -63,7 +79,7 @@ export default function CookieBanner() {
                 fontFamily: 'inherit', textDecoration: 'underline',
               }}
             >
-              Privacy Policy
+              {t.privacy}
             </button>
           </p>
 
@@ -81,7 +97,7 @@ export default function CookieBanner() {
               onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--ink-muted)'}
               onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line-strong)'}
             >
-              Reject
+              {t.reject}
             </button>
             <button
               onClick={accept}
@@ -95,7 +111,7 @@ export default function CookieBanner() {
               onMouseEnter={e => e.currentTarget.style.background = '#286c3c'}
               onMouseLeave={e => e.currentTarget.style.background = 'var(--leaf)'}
             >
-              Accept
+              {t.accept}
             </button>
           </div>
         </motion.div>

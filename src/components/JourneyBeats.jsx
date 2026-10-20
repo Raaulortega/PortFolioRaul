@@ -4,6 +4,7 @@
 import { motion, useTransform } from 'framer-motion';
 import { ArrowRight, Github, Linkedin } from 'lucide-react';
 import { useTypewriter } from '../hooks/useTypewriter';
+import { useCopy, useLang } from '../i18n/lang';
 
 /** [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd] in journey progress. */
 const BEATS = {
@@ -16,41 +17,85 @@ const BEATS = {
   // 0.775 → 1: nothing on screen, the valley reveal gets the stage.
 };
 
-const ROLES = ['Junior Software Developer', 'Full Stack Developer', 'Frontend Engineer', 'Problem Solver'];
-
 const SOCIALS = [
   { icon: <Github size={18} />, href: 'https://github.com/Raaulortega', label: 'GitHub' },
   { icon: <Linkedin size={18} />, href: 'https://linkedin.com/in/RaaulOrteega', label: 'LinkedIn' },
 ];
 
-const STATS = [
-  { number: '22', label: 'Years old' },
-  { number: '4+', label: 'Projects built' },
-  { number: '∞', label: 'Curiosity level' },
-  { number: '100%', label: 'Committed' },
-];
-
-const INTRO_SEGMENTS = [
-  { text: 'Hey! I\'m ' },
-  { text: 'Raúl Ortega Pérez', strong: true },
-  { text: ', a 22-year-old ' },
-  { text: 'Computer Engineering graduate', strong: true },
-  { text: ' from the ' },
-  { text: 'University of Almería (UAL), Spain', strong: true },
-  { text: '. I\'m passionate about turning complex problems into elegant, user-friendly software.' },
-];
-
-const CRAFT_SEGMENTS = [
-  { text: 'I love building ' },
-  { text: 'full-stack web applications', strong: true },
-  { text: ' — from crafting pixel-perfect UIs to designing efficient backend architectures. My goal is always clean, maintainable code that scales.' },
-];
-
-const EUROPE_SEGMENTS = [
-  { text: 'I\'m actively ' },
-  { text: 'open to opportunities across Europe', strong: true },
-  { text: ', including Denmark, Sweden, Norway, Germany and the Netherlands — both on-site and remote.' },
-];
+const COPY = {
+  en: {
+    roles: ['Junior Software Developer', 'Full Stack Developer', 'Frontend Engineer', 'Problem Solver'],
+    eyebrow: 'Available for work · Open to relocation in Europe',
+    heroDesc: ['Junior Full Stack Developer and Computer Engineering graduate from ', '. I craft fast, scalable, and beautiful web experiences that users love.'],
+    viewWork: 'View my work',
+    getInTouch: 'Get in touch',
+    aboutTag: 'about me',
+    aboutTitle: ['Who I am & ', 'what I do'],
+    stats: [
+      { number: '22', label: 'Years old' },
+      { number: '4+', label: 'Projects built' },
+      { number: '∞', label: 'Curiosity level' },
+      { number: '100%', label: 'Committed' },
+    ],
+    degreeBadge: "Bachelor's Degree",
+    degreeTitle: 'Computer Engineering',
+    intro: [
+      { text: 'Hey! I\'m ' },
+      { text: 'Raúl Ortega Pérez', strong: true },
+      { text: ', a 22-year-old ' },
+      { text: 'Computer Engineering graduate', strong: true },
+      { text: ' from the ' },
+      { text: 'University of Almería (UAL), Spain', strong: true },
+      { text: '. I\'m passionate about turning complex problems into elegant, user-friendly software.' },
+    ],
+    craft: [
+      { text: 'I love building ' },
+      { text: 'full-stack web applications', strong: true },
+      { text: ' — from crafting pixel-perfect UIs to designing efficient backend architectures. My goal is always clean, maintainable code that scales.' },
+    ],
+    europe: [
+      { text: 'I\'m actively ' },
+      { text: 'open to opportunities across Europe', strong: true },
+      { text: ', including Denmark, Sweden, Norway, Germany and the Netherlands — both on-site and remote.' },
+    ],
+  },
+  es: {
+    roles: ['Desarrollador Software Junior', 'Desarrollador Full Stack', 'Ingeniero Frontend', 'Resolutor de problemas'],
+    eyebrow: 'Disponible para trabajar · Abierto a reubicarme en Europa',
+    heroDesc: ['Desarrollador Full Stack junior e Ingeniero Informático por la ', '. Creo experiencias web rápidas, escalables y cuidadas que a los usuarios les encantan.'],
+    viewWork: 'Ver mis proyectos',
+    getInTouch: 'Contactar',
+    aboutTag: 'sobre mí',
+    aboutTitle: ['Quién soy y ', 'a qué me dedico'],
+    stats: [
+      { number: '22', label: 'Años' },
+      { number: '4+', label: 'Proyectos creados' },
+      { number: '∞', label: 'Nivel de curiosidad' },
+      { number: '100%', label: 'Compromiso' },
+    ],
+    degreeBadge: 'Grado universitario',
+    degreeTitle: 'Ingeniería Informática',
+    intro: [
+      { text: '¡Hola! Soy ' },
+      { text: 'Raúl Ortega Pérez', strong: true },
+      { text: ', tengo 22 años y soy ' },
+      { text: 'Ingeniero Informático', strong: true },
+      { text: ' por la ' },
+      { text: 'Universidad de Almería (UAL)', strong: true },
+      { text: '. Me apasiona convertir problemas complejos en software elegante y fácil de usar.' },
+    ],
+    craft: [
+      { text: 'Me encanta crear ' },
+      { text: 'aplicaciones web full stack', strong: true },
+      { text: ' — desde interfaces cuidadas al píxel hasta arquitecturas backend eficientes. Mi objetivo es siempre un código limpio, mantenible y que escale.' },
+    ],
+    europe: [
+      { text: 'Estoy ' },
+      { text: 'abierto a oportunidades en España y en toda Europa', strong: true },
+      { text: ', incluidos Dinamarca, Suecia, Noruega, Alemania y Países Bajos — tanto presencial como en remoto.' },
+    ],
+  },
+};
 
 /** Splits text segments into word tokens; whitespace tokens get index -1. */
 function tokenize(segments) {
@@ -65,9 +110,14 @@ function tokenize(segments) {
   return { tokens, count: index };
 }
 
-const INTRO_TOKENS = tokenize(INTRO_SEGMENTS);
-const CRAFT_TOKENS = tokenize(CRAFT_SEGMENTS);
-const EUROPE_TOKENS = tokenize(EUROPE_SEGMENTS);
+// Word tokens per language, computed once so scrolling never re-tokenizes.
+const TOKENS = Object.fromEntries(
+  Object.entries(COPY).map(([lang, c]) => [lang, {
+    intro: tokenize(c.intro),
+    craft: tokenize(c.craft),
+    europe: tokenize(c.europe),
+  }]),
+);
 
 /** Fade + drift wrapper shared by every beat. */
 function Beat({ progress, band, className = '', children }) {
@@ -108,7 +158,8 @@ function RevealText({ progress, data, range, className }) {
 }
 
 function HeroBeat({ progress }) {
-  const title = useTypewriter(ROLES, 80, 2000);
+  const t = useCopy(COPY);
+  const title = useTypewriter(t.roles, 80, 2000);
   return (
     <Beat progress={progress} band={BEATS.hero.band} className="hud-beat--hero">
       <motion.div
@@ -118,7 +169,7 @@ function HeroBeat({ progress }) {
         transition={{ duration: 0.7, delay: 0.2 }}
       >
         <span className="dot" />
-        Available for work · Open to relocation in Europe
+        {t.eyebrow}
       </motion.div>
 
       <motion.h1
@@ -147,8 +198,7 @@ function HeroBeat({ progress }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.55 }}
       >
-        Junior Full Stack Developer and Computer Engineering graduate from <strong>UAL · Almería</strong>.
-        I craft fast, scalable, and beautiful web experiences that users love.
+        {t.heroDesc[0]}<strong>UAL · Almería</strong>{t.heroDesc[1]}
       </motion.p>
 
       <motion.div
@@ -158,9 +208,9 @@ function HeroBeat({ progress }) {
         transition={{ duration: 0.7, delay: 0.65 }}
       >
         <a href="#projects" className="btn-primary">
-          View my work <ArrowRight size={16} />
+          {t.viewWork} <ArrowRight size={16} />
         </a>
-        <a href="#contact" className="btn-secondary">Get in touch</a>
+        <a href="#contact" className="btn-secondary">{t.getInTouch}</a>
         <div className="hero-socials">
           {SOCIALS.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noreferrer" title={s.label} aria-label={s.label} className="icon-button">
@@ -174,13 +224,15 @@ function HeroBeat({ progress }) {
 }
 
 function IntroBeat({ progress }) {
+  const t = useCopy(COPY);
+  const tokens = TOKENS[useLang()];
   return (
     <Beat progress={progress} band={BEATS.intro.band}>
-      <div className="section-tag hud-beat-tag">about me</div>
+      <div className="section-tag hud-beat-tag">{t.aboutTag}</div>
       <h2 className="hud-title">
-        Who I am &amp; <span className="gradient-text">what I do</span>
+        {t.aboutTitle[0]}<span className="gradient-text">{t.aboutTitle[1]}</span>
       </h2>
-      <RevealText progress={progress} data={INTRO_TOKENS} range={BEATS.intro.reveal} className="hud-flow-text hud-flow-text--sm" />
+      <RevealText progress={progress} data={tokens.intro} range={BEATS.intro.reveal} className="hud-flow-text hud-flow-text--sm" />
     </Beat>
   );
 }
@@ -198,13 +250,14 @@ function StatItem({ progress, start, stat }) {
 }
 
 function StatsBeat({ progress }) {
+  const { stats } = useCopy(COPY);
   const [from, to] = BEATS.stats.reveal;
-  const step = (to - from) / STATS.length;
+  const step = (to - from) / stats.length;
   return (
     <Beat progress={progress} band={BEATS.stats.band} className="hud-beat--wide">
       <div className="beat-stats">
-        {STATS.map((s, i) => (
-          <StatItem key={s.label} progress={progress} start={from + step * i} stat={s} />
+        {stats.map((s, i) => (
+          <StatItem key={s.number} progress={progress} start={from + step * i} stat={s} />
         ))}
       </div>
     </Beat>
@@ -212,10 +265,11 @@ function StatsBeat({ progress }) {
 }
 
 function EducationBeat({ progress }) {
+  const t = useCopy(COPY);
   return (
     <Beat progress={progress} band={BEATS.education.band}>
-      <div className="beat-edu-badge">Bachelor's Degree</div>
-      <h2 className="beat-edu-title">Computer Engineering</h2>
+      <div className="beat-edu-badge">{t.degreeBadge}</div>
+      <h2 className="beat-edu-title">{t.degreeTitle}</h2>
       <p className="beat-edu-meta">
         Universidad de Almería (UAL) · <span style={{ whiteSpace: 'nowrap' }}>2022 – 2026</span>
       </p>
@@ -224,17 +278,19 @@ function EducationBeat({ progress }) {
 }
 
 function CraftBeat({ progress }) {
+  const tokens = TOKENS[useLang()];
   return (
     <Beat progress={progress} band={BEATS.craft.band}>
-      <RevealText progress={progress} data={CRAFT_TOKENS} range={BEATS.craft.reveal} className="hud-flow-text" />
+      <RevealText progress={progress} data={tokens.craft} range={BEATS.craft.reveal} className="hud-flow-text" />
     </Beat>
   );
 }
 
 function EuropeBeat({ progress }) {
+  const tokens = TOKENS[useLang()];
   return (
     <Beat progress={progress} band={BEATS.europe.band}>
-      <RevealText progress={progress} data={EUROPE_TOKENS} range={BEATS.europe.reveal} className="hud-flow-text" />
+      <RevealText progress={progress} data={tokens.europe} range={BEATS.europe.reveal} className="hud-flow-text" />
     </Beat>
   );
 }

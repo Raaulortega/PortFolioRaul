@@ -8,10 +8,11 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { LangProvider } from './i18n/lang';
 
-export default function App() {
+export default function App({ lang = 'en' }) {
   return (
-    <>
+    <LangProvider value={lang}>
       <ScrollProgress />
       <Navbar />
       <SkyJourney />
@@ -23,6 +24,6 @@ export default function App() {
       </main>
       <Footer />
       <CookieBanner />
-    </>
+    </LangProvider>
   );
 }

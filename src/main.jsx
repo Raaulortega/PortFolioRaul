@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { langFromPath } from './i18n/lang.js'
 
 // Google Translate (and similar page translators) mutates the DOM directly,
 // wrapping text nodes in <font> tags. When React later tries to reconcile
@@ -29,6 +30,6 @@ if (typeof Node === 'function' && Node.prototype) {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <App lang={langFromPath(window.location.pathname)} />
   </StrictMode>,
 )
