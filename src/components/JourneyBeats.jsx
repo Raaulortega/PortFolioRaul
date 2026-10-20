@@ -24,9 +24,9 @@ const SOCIALS = [
 
 const COPY = {
   en: {
-    roles: ['Junior Software Developer', 'Full Stack Developer', 'Frontend Engineer', 'Problem Solver'],
+    roles: ['Software Developer', 'Full Stack Developer', 'Frontend Engineer', 'Problem Solver'],
     eyebrow: 'Available for work · Open to relocation in Europe',
-    heroDesc: ['Junior Full Stack Developer and Computer Engineering graduate from ', '. I craft fast, scalable, and beautiful web experiences that users love.'],
+    heroDesc: ['Full Stack Developer and Computer Engineering graduate from ', '. I craft fast, scalable, and beautiful web experiences that users love.'],
     viewWork: 'View my work',
     getInTouch: 'Get in touch',
     aboutTag: 'about me',
@@ -60,9 +60,9 @@ const COPY = {
     ],
   },
   es: {
-    roles: ['Desarrollador Software Junior', 'Desarrollador Full Stack', 'Ingeniero Frontend', 'Resolutor de problemas'],
+    roles: ['Desarrollador de Software', 'Desarrollador Full Stack', 'Ingeniero Frontend', 'Resolutor de problemas'],
     eyebrow: 'Disponible para trabajar · Abierto a reubicarme en Europa',
-    heroDesc: ['Desarrollador Full Stack junior e Ingeniero Informático por la ', '. Creo experiencias web rápidas, escalables y cuidadas que a los usuarios les encantan.'],
+    heroDesc: ['Desarrollador Full Stack e Ingeniero Informático por la ', '. Creo experiencias web rápidas, escalables y cuidadas que a los usuarios les encantan.'],
     viewWork: 'Ver mis proyectos',
     getInTouch: 'Contactar',
     aboutTag: 'sobre mí',

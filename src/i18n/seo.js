@@ -12,29 +12,29 @@ export const PAGE_URL = {
 const META = {
   en: {
     ogLocale: 'en_GB',
-    title: 'Raúl Ortega Pérez — Junior Full Stack Software Developer',
+    title: 'Raúl Ortega Pérez — Full Stack Software Developer',
     description:
-      'Junior Full Stack Software Developer and Computer Engineering graduate (UAL, Spain). React, Node.js, Java, Python and cybersecurity. Open to work across Europe.',
+      'Full Stack Software Developer and Computer Engineering graduate (UAL, Spain). React, Node.js, Java, Python and cybersecurity. Open to work across Europe.',
     ogDescription:
-      'Computer Engineering graduate from Spain. Junior Full Stack Developer: React, Node.js, Java, Python and cybersecurity. Open to work and relocation across Europe.',
-    imageAlt: 'Raúl Ortega Pérez — Junior Full Stack Software Developer portfolio',
-    jobTitle: 'Junior Full Stack Software Developer',
+      'Computer Engineering graduate from Spain. Full Stack Developer: React, Node.js, Java, Python and cybersecurity. Open to work and relocation across Europe.',
+    imageAlt: 'Raúl Ortega Pérez — Full Stack Software Developer portfolio',
+    jobTitle: 'Full Stack Software Developer',
     personDescription:
-      'Junior Full Stack Software Developer and Computer Engineering graduate from the University of Almería (Spain). React, Node.js, Java, Python and cybersecurity. Open to work and relocation across Europe.',
+      'Full Stack Software Developer and Computer Engineering graduate from the University of Almería (Spain). React, Node.js, Java, Python and cybersecurity. Open to work and relocation across Europe.',
     degree: "Bachelor's Degree in Computer Engineering",
     university: 'University of Almería',
   },
   es: {
     ogLocale: 'es_ES',
-    title: 'Raúl Ortega Pérez — Desarrollador Full Stack Junior',
+    title: 'Raúl Ortega Pérez — Desarrollador Full Stack',
     description:
-      'Desarrollador Full Stack junior e Ingeniero Informático por la Universidad de Almería. React, Node.js, Java, Python y ciberseguridad. Disponible para trabajar.',
+      'Desarrollador Full Stack e Ingeniero Informático por la Universidad de Almería. React, Node.js, Java, Python y ciberseguridad. Disponible para trabajar.',
     ogDescription:
-      'Ingeniero Informático por la Universidad de Almería. Desarrollador Full Stack junior: React, Node.js, Java, Python y ciberseguridad. Disponible en España y Europa.',
-    imageAlt: 'Raúl Ortega Pérez — portfolio de desarrollador Full Stack junior',
-    jobTitle: 'Desarrollador de Software Full Stack Junior',
+      'Ingeniero Informático por la Universidad de Almería. Desarrollador Full Stack: React, Node.js, Java, Python y ciberseguridad. Disponible en España y Europa.',
+    imageAlt: 'Raúl Ortega Pérez — portfolio de desarrollador Full Stack',
+    jobTitle: 'Desarrollador de Software Full Stack',
     personDescription:
-      'Desarrollador de software Full Stack junior e Ingeniero Informático por la Universidad de Almería (España). React, Node.js, Java, Python y ciberseguridad. Disponible para trabajar en España, en remoto o con reubicación en Europa.',
+      'Desarrollador de software Full Stack e Ingeniero Informático por la Universidad de Almería (España). React, Node.js, Java, Python y ciberseguridad. Disponible para trabajar en España, en remoto o con reubicación en Europa.',
     degree: 'Grado en Ingeniería Informática',
     university: 'Universidad de Almería',
   },
