@@ -16,7 +16,7 @@ const BEATS = {
   // 0.775 → 1: nothing on screen, the valley reveal gets the stage.
 };
 
-const ROLES = ['Software Developer', 'Frontend Engineer', 'Full Stack Dev', 'Problem Solver'];
+const ROLES = ['Junior Software Developer', 'Full Stack Developer', 'Frontend Engineer', 'Problem Solver'];
 
 const SOCIALS = [
   { icon: <Github size={18} />, href: 'https://github.com/Raaulortega', label: 'GitHub' },
@@ -147,7 +147,7 @@ function HeroBeat({ progress }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.55 }}
       >
-        Computer Engineering graduate from <strong>UAL · Almería</strong>.
+        Junior Full Stack Developer and Computer Engineering graduate from <strong>UAL · Almería</strong>.
         I craft fast, scalable, and beautiful web experiences that users love.
       </motion.p>
 
